@@ -15,7 +15,7 @@ class Template {
 		$district = $this->obj->db->get('app_config')->row();
 		$this->obj->db->where('code',$district->value);
 		$district = $this->obj->db->get('cl_district')->row();
-		$data['district']= str_replace("Kota","Kota Administrasi",ucwords(strtolower($district->value)));
+		$data['district']= ucwords(strtolower($district->value));
 
 
 		if($this->obj->session->userdata('puskesmas') !=""){
