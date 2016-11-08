@@ -35,7 +35,7 @@ class Morganisasi extends CI_Controller {
 
 		$data['color']	= $color;
 
-		$data['content'] = $this->parser->parse("sms/show",$data,true);
+		$data['content'] = $this->parser->parse("antrian/show",$data,true);
 		$this->template->show($data,'home');
 	}
 
