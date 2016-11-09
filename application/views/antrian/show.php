@@ -12,7 +12,7 @@
     </a>
   </div><!-- /.col -->
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <a href="<?php echo base_url();?>">
+    <a href="#" onclick="window.open('<?php echo base_url();?>antrian/tv', 'newwindow', 'menubar=no,location=no,resizable=no,scrollbars=no,fullscreen=yes, scrollbars=auto'); return false;">
     <div class="info-box">
       <span class="info-box-icon bg-red"><i class="fa fa-sort-numeric-asc"></i></span>
       <div class="info-box-content">

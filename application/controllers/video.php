@@ -123,10 +123,7 @@ class Video extends CI_Controller {
   function json_video_list(){
     $this->db->where('status', '1');
     $this->db->where('cl_video.code', 'P'.$this->session->userdata('puskesmas'));
-    $rows_all = $this->antrian_model->get_video();
-    $this->db->where('cl_video.code', 'P'.$this->session->userdata('puskesmas'));
-    $this->db->where('status', '1');
-		$rows = $this->antrian_model->get_video($this->input->post('recordstartindex'), $this->input->post('pagesize'));
+		$rows = $this->antrian_model->get_video();
 
     $data = array();
 		foreach($rows as $act) {
