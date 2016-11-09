@@ -4,11 +4,11 @@ class Cli_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
-    
+
     function reset_pasien_bpjs_nohp_null(){
         $this->db->where('bpjs <>','');
         $this->db->where('nomor','-');
-        $pasien = $this->db->update('sms_pbk',array('nomor'=>''));
+        $pasien = $this->db->update('cl_pasien',array('nomor'=>''));
 
         return $pasien;
     }
@@ -16,7 +16,7 @@ class Cli_model extends CI_Model {
     function get_pasien_bpjs_nohp_null(){
         $this->db->where('bpjs <>','');
         $this->db->where('nomor','');
-        $pasien = $this->db->get('sms_pbk')->row();
+        $pasien = $this->db->get('cl_pasien')->row();
 
         return $pasien;
     }
@@ -37,7 +37,7 @@ class Cli_model extends CI_Model {
       	echo $cl_pid." : ".$res['nama']." : ".$data['nomor'] ." : ".$res['kdProviderPst']['nmProvider'];
 
     	$this->db->where('cl_pid',$cl_pid);
-    	return $this->db->update('sms_pbk',$data);
+    	return $this->db->update('cl_pasien',$data);
     }
 
     function exclude_cl_pid($puskesmas){
@@ -58,7 +58,7 @@ class Cli_model extends CI_Model {
 
         $this->db->where('cl_phc',$cl_phc);
         $this->db->where('cl_pid',$dt['id']);
-        $check = $this->db->get('sms_pbk')->row();
+        $check = $this->db->get('cl_pasien')->row();
         if(empty($check->cl_pid)){
             $pbk = array(
                 'cl_pid'    => $dt['id'],
@@ -69,7 +69,7 @@ class Cli_model extends CI_Model {
                 'nik'       => $dt['nik'],
                 'nama'      => $dt['nama_lengkap']
             );
-            if($this->db->insert('sms_pbk',$pbk)){
+            if($this->db->insert('cl_pasien',$pbk)){
                 return "insert";
             }else{
                 return "error";
@@ -94,7 +94,7 @@ class Cli_model extends CI_Model {
             }
             $this->db->where('cl_pid',$dt['id']);
             $this->db->where('cl_phc',$cl_phc);
-            if($this->db->update('sms_pbk',$pbk)){
+            if($this->db->update('cl_pasien',$pbk)){
                 return "update";
             }else{
                 return "error";
@@ -161,7 +161,7 @@ class Cli_model extends CI_Model {
 
 			$this->db->insert('kunjungan_kelainan', $kelainan);
  	   	}
-   	}    
+   	}
 
     function insert_diagnosa($dt, $id_kunjungan){
     	$data['id_kunjungan']    	= $id_kunjungan;

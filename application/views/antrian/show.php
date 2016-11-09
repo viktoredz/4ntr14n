@@ -1,7 +1,7 @@
 <!-- Info boxes -->
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <a href="<?php echo base_url();?>">
+    <a href="<?php echo base_url();?>antrian/pasien">
     <div class="info-box">
       <span class="info-box-icon bg-green"><i class="ion ion-ios-people-outline"></i></span>
       <div class="info-box-content">
@@ -27,7 +27,7 @@
   <div class="clearfix visible-sm-block"></div>
 
   <div class="col-md-3 col-sm-6 col-xs-12">
-    <a href="<?php echo base_url();?>">
+    <a href="#" onclick="window.open('<?php echo base_url();?>antrian/kiosk', 'newwindow', 'menubar=no,location=no,resizable=no,scrollbars=no,fullscreen=yes, scrollbars=auto'); return false;">
     <div class="info-box">
       <span class="info-box-icon bg-blue"><i class="fa fa-hand-o-up"></i></span>
       <div class="info-box-content">

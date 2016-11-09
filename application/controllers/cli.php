@@ -5,9 +5,8 @@ class Cli extends CI_Controller {
 		parent::__construct();
 		$this->load->model('cli_model');
 		$this->load->model('epus');
-		$this->load->model('bpjs');
 	}
-	
+
 	function index($args = ""){
 		if($this->input->is_cli_request()) {
 			ini_set('max_execution_time', 0);
@@ -16,55 +15,20 @@ class Cli extends CI_Controller {
 			ini_set('register_argc_argv', 'On');
 			ini_set('output_buffering', 'Off');
 			ini_set('implicit_flush', 'On');
-			
-			$cl_phc = $this->db->get('cl_phc')->result();
-			foreach ($cl_phc as $cl) {
-				$this->pasien_search($cl->code);
+
+			$this->db->where('key','cl_phc');
+			$cl_phc = $this->db->get('app_config')->row();
+			if(!empty($cl_phc->value)){
+				$this->pasien_search($cl_phc->value);
 			}
-			//$this->cli_model->reset_pasien_bpjs_nohp_null();
-			$this->sync_bpjs();
 
 		}else{
 			die("Please access via cli");
 		}
 	}
 
-	function sync_epus($kode=""){
-		if($kode==""){
-			$cl_phc = $this->db->get('cl_phc')->result();
-			foreach ($cl_phc as $cl) {
-				$this->pasien_search($cl->code);
-			}
-		}else{
-			$this->pasien_search($kode);
-		}
-	}
-
-    function sync_bpjs(){
-    	sleep(1);
-		$pasien = $this->cli_model->get_pasien_bpjs_nohp_null();
-
-		if(!empty($pasien->bpjs)){
-	      	$data = $this->bpjs->bpjs_search('bpjs',$pasien->bpjs);
-
-	      	if(isset($data['metaData']) && $data['metaData']['code']==200){
-		      	$res  = $data['response'];
-				if($this->cli_model->update_pasien_bpjs_nohp_null($pasien->cl_pid,$res)){
-					echo "\n";
-					$this->sync_bpjs();
-				}else{
-					echo "\nerror database";
-				}
-	      	}else{
-	      		print_r($data);
-	      	}
-		}else{
-			echo "done";
-		}
-
-    }
-
 	function pasien_search($cl_phc=""){
+    echo $cl_phc;
 		$config 	= $this->epus->get_config("get_data_allPasien");
 		$exclude 	= "('x')";
 

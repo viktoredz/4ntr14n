@@ -2,42 +2,37 @@
 class Morganisasi_model extends CI_Model {
 
     var $tabel     = 'app_theme';
-	
+
     function __construct() {
         parent::__construct();
     }
 
-    function get_data_kelurahan(){
-    	$kode_kecamatan = substr($this->session->userdata('puskesmas'),0,7);
-		$query = $this->db->like('code',$kode_kecamatan);
-		$data = $query->get('cl_village')->result_array();
-
-		return $data;
-    }
-    
     function get_data_puskesmas($start=0,$limit=999999,$options=array())
     {
     	$this->db->order_by('value','asc');
-        $query = $this->db->get('cl_phc',$limit,$start);
-        return $query->result();
+      $query = $this->db->get('cl_phc',$limit,$start);
+      return $query->result();
     }
 
-    function get_data_kk(){
-		$data = $this->db->get('data_keluarga')->result_array();
+    function get_data_pasien(){
+      $data = $this->db->get('cl_pasien')->result_array();
 
-		return $data;
+      return $data;
     }
+
+    function get_jml_pasien(){
+      $data = $this->db->get('cl_pasien')->num_rows();
+
+      return $data;
+    }
+
     function get_datawhere($code,$condition,$table){
         $this->db->select("*");
         $this->db->like($condition,$code);
         return $this->db->get($table)->result();
     }
-    function get_data_penduduk(){
-		$data = $this->db->get('data_keluarga_anggota')->result_array();
 
-		return $data;
-    }
-    
+
     function get_data_kel($id_data_keluarga, $jk){
     	$this->db->like('id_data_keluarga',$id_data_keluarga);
     	$this->db->where('id_pilihan_kelamin',$jk);
@@ -45,7 +40,7 @@ class Morganisasi_model extends CI_Model {
 
 		return count($data);
     }
-    
+
 	function get_profile($username=""){
 		$data = array();
 		if($username!=""){
@@ -53,26 +48,26 @@ class Morganisasi_model extends CI_Model {
 		}else{
    		     $options = array('app_users_list.username'=>$this->session->userdata('username'), 'app_users_list.code'=>$this->session->userdata('puskesmas'));
 		}
-		
+
 		$this->db->join("app_users_profile","app_users_profile.username=app_users_list.username AND app_users_profile.code=app_users_list.code","INNER");
 
 		$this->db->where($options);
-		
+
 		$query = $this->db->get_where('app_users_list');
 		if ($query->num_rows() > 0){
 			$data = $query->row_array();
 		}
 
-		$query->free_result();    
+		$query->free_result();
 		return $data;
 	}
-	
+
 	function cek_session()
 	{
 		$this->db->select('*');
 		$this->db->from('app_users_list');
 		$this->db->where('username', $this->session->userdata('id_session'));
-		$query=$this->db->get();		
+		$query=$this->db->get();
 		return $query->num_rows();
 	}
 
@@ -89,7 +84,7 @@ class Morganisasi_model extends CI_Model {
 				return $data = $query->row_array();
 			}
 		}
-	}	
+	}
 
 	function check_email($str){
 		$uid = ($this->session->userdata('username')!="") ? $this->session->userdata('username') : "";
@@ -126,7 +121,7 @@ class Morganisasi_model extends CI_Model {
 	}
 
     function insert_entry(){
-		
+
         $data['username']=$this->input->post('username');
         $data['level']="member";
         $data['password']=$this->encrypt->sha1($this->input->post('password').$this->config->item('encryption_key'));
@@ -135,8 +130,8 @@ class Morganisasi_model extends CI_Model {
         $data['online']=0;
         $data['last_login']=0;
         $data['last_active']=0;
-        $data['datereg']=time();	
-		
+        $data['datereg']=time();
+
 		$this->db->select('*');
 		$this->db->from('app_users_list');
 		$this->db->where('username', "".$this->input->post('username'));
@@ -150,7 +145,7 @@ class Morganisasi_model extends CI_Model {
 			}
 		} else {
 			if($this->db->insert("app_users_list", $data)) {
-			
+
 				$profile = array();
 				//$profile['trup']=$this->createTRUP();
 				$profile['username']=$this->input->post('username');
@@ -166,7 +161,7 @@ class Morganisasi_model extends CI_Model {
 		}
     }
 
-    function update_profile() 
+    function update_profile()
     {
     	$profile['email']=$this->input->post('email');
     	$profile['nama']=$this->input->post('nama');
@@ -193,7 +188,7 @@ class Morganisasi_model extends CI_Model {
 
 		$check = $this->db->get_where('app_users_profile', array('username' => $this->session->userdata('username')));
 		$check = $check->num_rows();
-		
+
 		if($check>0){
 			$oke=$this->db->update('app_users_profile', $profile, array('username' => $this->session->userdata('username')));
 			if($oke)
@@ -211,7 +206,7 @@ class Morganisasi_model extends CI_Model {
 		}
 
     }
-	
+
 	function update_status()
     {
 		$check = $this->db->get_where('app_users_profile', array('username' => $this->session->userdata('username')));
@@ -222,11 +217,11 @@ class Morganisasi_model extends CI_Model {
 			$oke=$this->db->update('app_users_list', $status, array('username' => $this->session->userdata('username')));
 
 			$lama['status']="Lama";
-			
+
 		}
-	
+
     }
-	
+
     function update_entry()
     {
 		$options['username']		= $this->session->userdata('username');
@@ -235,7 +230,7 @@ class Morganisasi_model extends CI_Model {
 		if($this->input->post('password')!="password" && $this->input->post('password2')!="password"){
 			$data['password']=$this->encrypt->sha1($this->input->post('password').$this->config->item('encryption_key'));
 		}
-        
+
 		$oke= $this->db->update('app_users_list', $data, $options);
 		if($oke)
 		{
@@ -245,7 +240,7 @@ class Morganisasi_model extends CI_Model {
 			return $this->db->replace('app_users_update', $update);
 		}
 		return $oke;
-		
+
     }
 
     function update_password($username) {
@@ -263,5 +258,5 @@ class Morganisasi_model extends CI_Model {
     	$data['password']=$this->encrypt->sha1($this->input->post('npassword').$this->config->item('encryption_key'));
     	return $this->db->update('app_users_list', $data);
     }
-    
+
 }

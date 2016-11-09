@@ -35,7 +35,7 @@ color: 				#367fa9;
 	<div id="content">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
-		<div style="float:right;position:relative;padding:20px">Sistem Informasi Kesehatan - <a href="http://www.inovasi.net">www.inovasi.net</a> &copy;  2015</div>
+		<div style="float:right;position:relative;padding:20px">Sistem Informasi Kesehatan - <a href="http://www.infokes.id">www.infokes.id</a> &copy;  2016</div>
 	</div>
 </body>
 </html>

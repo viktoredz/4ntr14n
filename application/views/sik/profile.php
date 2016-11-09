@@ -9,7 +9,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#btn_updatePassword').click(function(){
-          $.ajax({ 
+          $.ajax({
             type: "POST",
             url: "<?php echo base_url()?>morganisasi/profile_dopasswd",
             data: $('#updatePassword').serialize(),
@@ -32,11 +32,11 @@
                       }, 300);
                }
             }
-           });    
+           });
         });
 
         $('#btn_updateProfile').click(function(){
-          $.ajax({ 
+          $.ajax({
             type: "POST",
             url: "<?php echo base_url()?>morganisasi/profile_doupdate",
             data: $('#updateProfile').serialize(),
@@ -60,7 +60,7 @@
                //        }, 300);
                // }
             }
-           });    
+           });
         });
     });
 </script>
@@ -83,14 +83,14 @@
     <div class="tab-content">
 
 
-      <div class="tab-pane " id="tab_2">    
+      <div class="tab-pane " id="tab_2">
         <!-- <form action="<?php echo base_url()?>morganisasi/profile_dopasswd" method="post"> -->
         <form name="updatePassword" id="updatePassword">
         <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <p class="login-box-msg">Berikut adalah informasi akun anda, anda dapat melakukan perubahan password:</p>
             <div class="form-group has-feedback">
-              <input type="text" class="form-control" placeholder="Username" name="username" readonly value="<?php 
+              <input type="text" class="form-control" placeholder="Username" name="username" readonly value="<?php
                       if(set_value('username')=="" && isset($username)){
                         echo $username;
                       }else{
@@ -123,7 +123,7 @@
       </div>
 
 
-      <div class="tab-pane active" id="tab_1">    
+      <div class="tab-pane active" id="tab_1">
         <!-- <form action="<?php echo base_url()?>morganisasi/profile_doupdate" method="post"> -->
         <form name="updateProfile" id="updateProfile">
         <div class="row">
@@ -133,7 +133,7 @@
               <span class="input-group-addon">
                 <i class="fa fa-qrcode" style="width:20px"></i>
               </span>
-              <input type="text" class="form-control" placeholder="Kode" name="code" readonly value="<?php 
+              <input type="text" class="form-control" placeholder="Kode" name="code" readonly value="<?php
                       if(set_value('code')=="" && isset($code)){
                         echo $code;
                       }else{
@@ -146,7 +146,7 @@
               <span class="input-group-addon">
                 <i class="fa fa-envelope" style="width:20px"></i>
               </span>
-              <input type="text" class="form-control" placeholder="Email" name="email" value="<?php 
+              <input type="text" class="form-control" placeholder="Email" name="email" value="<?php
                       if(set_value('email')=="" && isset($email)){
                         echo $email;
                       }else{
@@ -159,7 +159,7 @@
               <span class="input-group-addon">
                 <i class="fa fa-user" style="width:20px"></i>
               </span>
-              <input type="text" class="form-control" placeholder="** Nama Lengkap" name="nama" value="<?php 
+              <input type="text" class="form-control" placeholder="** Nama Lengkap" name="nama" value="<?php
                       if(set_value('nama')=="" && isset($nama)){
                         echo $nama;
                       }else{
@@ -172,7 +172,7 @@
               <span class="input-group-addon">
                 <i class="fa fa-phone" style="width:20px"></i>
               </span>
-              <input type="text" class="form-control" placeholder="** No. Tlp" name="phone_number" value="<?php 
+              <input type="text" class="form-control" placeholder="** No. Tlp" name="phone_number" value="<?php
                       if(set_value('phone_number')=="" && isset($phone_number)){
                         echo $phone_number;
                       }else{
@@ -188,11 +188,11 @@
             </div>
         </div>
         </div>
-        </form>        
+        </form>
       </div>
 
 
-      <div class="tab-pane" id="tab_3">   
+      <div class="tab-pane" id="tab_3">
         <!-- <div class="row">
         <div class="col-md-10 col-md-offset-1">
           <p class="login-box-msg">Galeri Foto Penangkar Masih Kosong</p>
@@ -211,7 +211,7 @@
 
 <script type="text/javascript">
 $(function(){
-    $("#menu_dashboard").addClass("active");
-    $("#menu_dashboard_profile").addClass("active");
+    $("#menu_morganisasi").addClass("active");
+    $("#menu_morganisasi_profile").addClass("active");
   });
 </script>

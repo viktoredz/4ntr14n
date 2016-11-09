@@ -8,7 +8,7 @@ $root = "http://".$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 $config['base_url']    = "$root";
 
-$config['title'] = "ePuskesmas Manajemen Organisasi";
+$config['title'] = "ePuskesmas Manajemen Antrian";
 $config['index_page'] 			= "";
 $config['uri_protocol']			= "AUTO";
 $config['url_suffix'] 			= ".sik";
@@ -29,7 +29,7 @@ $config['log_date_format'] 		= 'Y-m-d H:i:s';
 $config['cache_path'] 			= '';
 $config['encryption_key'] 		= "viktoredz";
 
-$config['sess_cookie_name']		= 'sms_jaksel';
+$config['sess_cookie_name']		= 'antrian_tangerang';
 $config['sess_expiration']		= 0;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= FALSE;
