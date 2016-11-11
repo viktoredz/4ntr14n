@@ -31,10 +31,10 @@ class Cli extends CI_Controller {
 		$lastregid 	= "RJ".date("Ymd")."000";
 		$lastpanggilanid 	= $this->cli_model->getlastpanggilanid();
 
-		for($i=0;$i<6;$i++){
+		for($i=0;$i<10;$i++){
 			$this->update_antrian($cl_phc, $lastregid ,$tanggal);
 			$this->update_panggilan($cl_phc, $lastpanggilanid ,$tanggal);
-			sleep(10);
+			sleep(6);
 		}
 	}
 
