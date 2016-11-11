@@ -34,7 +34,7 @@ class Morganisasi extends CI_Controller {
 			$data['nomor_slice']	= isset($panggilan['reg_antrian']) ? implode('","',str_split($panggilan['reg_antrian'],1)) : "";
 			$data['reg_poli']		= isset($panggilan['reg_poli']) ? $panggilan['reg_poli'] : "";
 
-			$this->morganisasi_model->call_antrian($panggilan['panggilan_id']);
+			if(isset($panggilan['panggilan_id'])) $this->morganisasi_model->call_antrian($panggilan['panggilan_id']);
 
 			echo $this->parser->parse("antrian/show_panggilan",$data,true);
 		}else{
