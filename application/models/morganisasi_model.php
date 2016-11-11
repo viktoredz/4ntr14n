@@ -32,13 +32,34 @@ class Morganisasi_model extends CI_Model {
         return $this->db->get($table)->result();
     }
 
+    function get_poli(){
+    	$this->db->where('is_antrian','1');
+      	$data = $this->db->get('cl_clinic')->result_array();
 
-    function get_data_kel($id_data_keluarga, $jk){
-    	$this->db->like('id_data_keluarga',$id_data_keluarga);
-    	$this->db->where('id_pilihan_kelamin',$jk);
-		$data = $this->db->get('data_keluarga_anggota')->result_array();
+      	return $data;
+    }
 
-		return count($data);
+    function get_antrian(){
+    	$tgl = "RJ".date("Ymd");
+    	$this->db->like('reg_id',$tgl);
+    	$this->db->select('cl_pasien.cl_pid,cl_pasien.nama,cl_reg.reg_antrian,cl_reg.reg_poli');
+    	$this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
+    	$this->db->order_by('reg_time','asc');
+    	$this->db->where('status_periksa','0');
+		$data = $this->db->get('cl_reg',9)->result_array();
+
+		return $data;
+    }
+
+    function get_panggilan(){
+    	$this->db->select('cl_pasien.nama,cl_panggilan.reg_id,cl_reg.reg_poli,cl_reg.reg_antrian');
+    	$this->db->join('cl_reg','cl_reg.reg_id=cl_panggilan.reg_id');
+    	$this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
+    	$this->db->order_by('panggilan_id','asc');
+    	$this->db->where('status_panggil','0');
+		$data = $this->db->get('cl_panggilan')->row_array();
+
+		return $data;
     }
 
 	function get_profile($username=""){

@@ -54,6 +54,56 @@ class Cli_model extends CI_Model {
     	return "('".implode("','", $data)."')";
     }
 
+    function update_antrian($dt,$cl_phc){
+        $this->db->where('reg_id',$dt['reg_id']);
+        $check = $this->db->get('cl_reg')->row();
+        if(empty($check->reg_id)){
+            $antrian = array(
+                'reg_id'            => $dt['reg_id'],
+                'reg_time'          => $dt['reg_time'],
+                'cl_pid'            => $dt['cl_pid'],
+                'reg_antrian_poli'  => $dt['reg_antrian_poli'],
+                'reg_antrian'       => $dt['reg_antrian'],
+                'reg_poli'          => $dt['reg_poli'],
+                'status_periksa'    => $dt['status_periksa'],
+                'status_lab'        => $dt['status_lab'],
+                'status_apotek'     => $dt['status_apotek'],
+                'status_kasir'      => $dt['status_kasir']
+            );
+            if($this->db->insert('cl_reg',$antrian)){
+                $this->db->where('cl_pid',$dt['cl_pid']);
+                $check2 = $this->db->get('cl_pasien')->row();
+                if(empty($check2->cl_pid)){
+                    return "notexisted";
+                }else{
+                    return "insert";
+                }
+            }else{
+                return "error";
+            }
+
+        }else{
+            $antrian = array(
+                'status_periksa'    => $dt['status_periksa'],
+                'status_lab'        => $dt['status_lab'],
+                'status_apotek'     => $dt['status_apotek'],
+                'status_kasir'      => $dt['status_kasir']
+            );
+            $this->db->where('reg_id',$dt['reg_id']);
+            if($this->db->update('cl_reg',$antrian)){
+                $this->db->where('cl_pid',$dt['cl_pid']);
+                $check2 = $this->db->get('cl_pasien')->row();
+                if(empty($check2->cl_pid)){
+                    return "notexisted";
+                }else{
+                    return "update";
+                }
+            }else{
+                return "error";
+            }
+        }
+    }
+
     function register($dt,$cl_phc){
 
         $this->db->where('cl_phc',$cl_phc);

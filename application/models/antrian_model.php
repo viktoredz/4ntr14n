@@ -1,8 +1,6 @@
 <?php
 class Antrian_model extends CI_Model {
 
-    var $tabel_dokter        = 'bpjs_data_dokter';
-
     function __construct() {
         parent::__construct();
     }
@@ -15,73 +13,71 @@ class Antrian_model extends CI_Model {
         return $query->result();
     }
 
-    function get_data_pasien($start=0,$limit=999999,$options=array()){
-        $this->db->select("id_kunjungan,app_users_profile.username,app_users_profile.nama,kunjungan.code,app_users_profile.jk,app_users_profile.phone_number,DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),tgl_lahir)), '%Y')+0 AS usia,kunjungan.status_antri,kunjungan.tgl,kunjungan.waktu",false);
-        $this->db->join('app_users_profile','kunjungan.username = app_users_profile.username AND kunjungan.code = app_users_profile.code','inner');
-        $this->db->where('tgl','CURDATE()',false);
-        $this->db->where('status_antri','antri');
-        $this->db->where('substr(id_kunjungan,1,8)',$this->session->userdata('klinik'));
-        $this->db->order_by('id_kunjungan','asc');
+    function get_poli($id){
+      $this->db->where('is_antrian', 1);
+      $this->db->where('id > ', $id);
+      $this->db->order_by('id','asc');
+      $poli = $this->db->get('cl_clinic')->row_array();
 
-        $query = $this->db->get('kunjungan',$limit,$start);
-        return $query->result();
+      if(!isset($poli['value'])){
+        $this->db->where('is_antrian', 1);
+        $this->db->order_by('id','asc');
+        $poli = $this->db->get('cl_clinic')->row_array();
+      }
+
+      return $poli;
     }
 
-    function get_data_non_pasien($start=0,$limit=10,$options=array()){
-        $this->db->select("id_kunjungan,app_users_profile.username,app_users_profile.nama,kunjungan.code,app_users_profile.jk,app_users_profile.phone_number,DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),tgl_lahir)), '%Y')+0 AS usia,kunjungan.poli, kunjungan.status_antri,kunjungan.tgl,kunjungan.waktu",false);
-        $this->db->join('app_users_profile','kunjungan.username = app_users_profile.username AND kunjungan.code = app_users_profile.code','inner');
-        $this->db->where('status_antri','antri');
-        $this->db->where('tgl','CURDATE()',false);
-        //$this->db->where('substr(id_kunjungan,1,8)',$this->session->userdata('klinik'));
-        if($this->session->userdata('level')!='pasien'){
-            $this->db->order_by('id_kunjungan','asc');
-        }else{
-            $this->db->order_by('id_kunjungan','asc');
-        }
-        $query = $this->db->get('kunjungan',$limit,$start);
-        return $query->result();
+    function get_list_poli($page){
+      $data = array();
+      $dt = array();
+
+      $limit = 6;
+      $start = $limit * $page;
+
+      $this->db->select('kode');
+      $this->db->where('is_antrian',1);
+      $this->db->limit($limit,$start);
+      $poli = $this->db->get('cl_clinic')->result_array();
+      foreach ($poli as $rows) {
+        $this->db->select('MIN(reg_antrian) as reg_antrian');
+        $this->db->where('reg_poli',$rows['kode']);
+        $this->db->where('status_periksa',0);
+        $antrian = $this->db->get('cl_reg')->row();
+
+        $dt['nomor']  = !empty($antrian->reg_antrian) ? $antrian->reg_antrian : "-";
+        $dt['kode']   = $rows['kode'];
+        $data[]       = $dt; 
+      }
+
+      return $data;
     }
 
-    function get_data_show_antrian($id, $status, $start=0,$limit=10,$options=array()){
-        $this->db->select("id_kunjungan,app_users_profile.username, app_users_profile.nama,app_users_profile.jk, kunjungan.code, app_users_profile.phone_number,DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),tgl_lahir)), '%Y')+0 AS usia,kunjungan.poli, kunjungan.status_antri,kunjungan.tgl,kunjungan.waktu",false);
-        $this->db->join('app_users_profile','kunjungan.username = app_users_profile.username AND kunjungan.code = app_users_profile.code','inner');
-        //$this->db->join('cl_poli', 'kunjungan.code = cl_poli.klinik', 'left');
-        $this->db->where('status_antri', $status);
-        $this->db->where('poli', $id);
-        $this->db->where('tgl','CURDATE()',false);
-        if($this->session->userdata('level')!='pasien'){
-            $this->db->order_by('id_kunjungan','asc');
-        }else{
-            $this->db->order_by('id_kunjungan','asc');
-        }
-        $this->db->group_by('id_kunjungan');
+    function get_poli_page($page){
+      $page = $page+1;
+      $limit = 6;
+      $start = $limit * ($page);
 
-        $query = $this->db->get('kunjungan',$limit,$start);
-        return $query->result();
+      $this->db->select('kode');
+      $this->db->where('is_antrian',1);
+      $this->db->limit($limit,$start);
+      $poli = $this->db->get('cl_clinic')->num_rows();
+      if($poli<1){
+        return 0;
+      }else{
+        return $page;
+      }
     }
 
-    function get_value_by_klinik($klinik){
-      $this->db->select('value');
-      $this->db->where('id', $klinik);
-      $this->db->order_by('id');
-      $this->db->group_by('id');
-      $query = $this->db->get('cl_poli')->row();
+    function get_antrian($kode){
+      $this->db->select('cl_pasien.nama,cl_reg.reg_antrian');
+      $this->db->where('status_periksa', 0);
+      $this->db->where('reg_poli', $kode);
+      $this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
+      $this->db->order_by('reg_id','asc');
+      $pasien = $this->db->get('cl_reg',5)->result_array();
 
-      //$query->row_array();
-      //var_dump($query->row_array());
-      return $query->value;
-    }
-
-    function get_poli_on_kunjungan(){
-      $this->db->distinct();
-      $this->db->select('poli');
-      $this->db->where('tgl', 'CURDATE()', false);
-      $this->db->where('status_antri', 'antri');
-      $this->db->where('poli <> 14');
-      $this->db->where('poli <> 15');
-      $this->db->order_by('poli', 'asc');
-      $query = $this->db->get('kunjungan');
-      return $query->result();
+      return $pasien;
     }
 
     function get_news(){

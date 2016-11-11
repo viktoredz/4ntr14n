@@ -10,10 +10,34 @@ class Morganisasi extends CI_Controller {
 		$this->authentication->verify('morganisasi','show');
 		$data['title_group'] 	= "Antrian";
 		$data['title_form'] 	= "Dashboard";
-		$data['pbk'] 			    = number_format($this->morganisasi_model->get_jml_pasien());
+		$data['pbk'] 			= number_format($this->morganisasi_model->get_jml_pasien());
+		$data['panggilan'] 		= $this->morganisasi_model->get_panggilan();
+		$data['poli'] 			= $this->morganisasi_model->get_poli();
 
 		$data['content'] = $this->parser->parse("antrian/show",$data,true);
 		$this->template->show($data,'home');
+	}
+
+	function antrian(){
+		$data['antrian']	= $this->morganisasi_model->get_antrian();
+		
+		echo $this->parser->parse("antrian/show_antrian",$data,true);
+	}
+
+	function panggilan($status=1){
+		if($status == 1){
+			$data 			= array();
+			$panggilan		= $this->morganisasi_model->get_panggilan();
+			$data['nama'] 	= isset($panggilan['nama']) ? $panggilan['nama'] : "Panggilan Kosong";
+			$data['poli'] 	= isset($panggilan['reg_poli']) ? "Poli : ".$panggilan['reg_poli'] : "";
+			$data['nomor'] 	= isset($panggilan['reg_antrian']) ? "Nomor : ".$panggilan['reg_antrian'] : "";
+			$data['nomor_slice']	= isset($panggilan['reg_antrian']) ? implode('","',str_split($panggilan['reg_antrian'],1)) : "";
+			$data['reg_poli']		= isset($panggilan['reg_poli']) ? $panggilan['reg_poli'] : "";
+			echo $this->parser->parse("antrian/show_panggilan",$data,true);
+		}else{
+			$data = array();
+			echo $this->parser->parse("antrian/show_panggilan_off",$data,true);
+		}	
 	}
 
 	function filter(){
