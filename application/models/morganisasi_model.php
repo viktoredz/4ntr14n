@@ -52,7 +52,7 @@ class Morganisasi_model extends CI_Model {
     }
 
     function get_panggilan(){
-    	$this->db->select('cl_pasien.nama,cl_panggilan.reg_id,cl_reg.reg_poli,cl_reg.reg_antrian,cl_panggilan.panggilan_id');
+    	$this->db->select('cl_pasien.nama,cl_panggilan.reg_id,cl_reg.reg_poli,cl_reg.reg_antrian,cl_reg.reg_antrian_poli,cl_panggilan.panggilan_id');
     	$this->db->join('cl_reg','cl_reg.reg_id=cl_panggilan.reg_id');
     	$this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
     	$this->db->order_by('panggilan_id','asc');

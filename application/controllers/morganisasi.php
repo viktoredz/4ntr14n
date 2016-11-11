@@ -30,8 +30,8 @@ class Morganisasi extends CI_Controller {
 			$panggilan		= $this->morganisasi_model->get_panggilan();
 			$data['nama'] 	= isset($panggilan['nama']) ? $panggilan['nama'] : "Panggilan Kosong";
 			$data['poli'] 	= isset($panggilan['reg_poli']) ? "Poli : ".$panggilan['reg_poli'] : "";
-			$data['nomor'] 	= isset($panggilan['reg_antrian']) ? "Nomor : ".$panggilan['reg_antrian'] : "";
-			$data['nomor_slice']	= isset($panggilan['reg_antrian']) ? implode('","',str_split($panggilan['reg_antrian'],1)) : "";
+			$data['nomor'] 	= isset($panggilan['reg_antrian_poli']) ? "Nomor : ".$panggilan['reg_antrian_poli'] : "";
+			$data['nomor_slice']	= isset($panggilan['reg_antrian_poli']) ? implode('","',str_split($panggilan['reg_antrian_poli'],1)) : "";
 			$data['reg_poli']		= isset($panggilan['reg_poli']) ? $panggilan['reg_poli'] : "";
 
 			if(isset($panggilan['panggilan_id'])) $this->morganisasi_model->call_antrian($panggilan['panggilan_id']);
