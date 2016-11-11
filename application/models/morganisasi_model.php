@@ -62,6 +62,14 @@ class Morganisasi_model extends CI_Model {
 		return $data;
     }
 
+    function call_antrian($panggilan_id){
+    	$data 	= array();
+    	$data['status_panggil'] = 1;
+
+    	$this->db->where('panggilan_id',$panggilan_id);
+    	$this->db->update('cl_panggilan');
+    }
+
 	function get_profile($username=""){
 		$data = array();
 		if($username!=""){
