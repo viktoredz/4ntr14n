@@ -152,7 +152,35 @@ class Cli_model extends CI_Model {
         }
     }
 
-    function insert_kunjungan($dt, $username, $puskesmas){
+    function getlastpanggilanid(){
+        $this->db->order_by('panggilan_id','desc');
+        $panggilan = $this->db->get('cl_panggilan')->row();
+        if(!empty($panggilan->panggilan_id)){
+            return $panggilan->panggilan_id;
+        }else{
+            return "0";
+        }
+
+    }
+
+    function insert_panggilan($dt){
+        if(isset($dt['panggilan_id'])){
+            $data = array(
+                'panggilan_id'  => $dt['panggilan_id'],
+                'reg_id'        => $dt['reg_id'],
+                'status_panggil'          => 0
+            );
+            if($this->db->insert('cl_panggilan',$data)){
+                return "insert";
+            }else{
+                return "error";
+            }
+        }else{
+            return "no data";
+        }
+    }
+
+   function insert_kunjungan($dt, $username, $puskesmas){
         $this->db->select('MAX(id_kunjungan) as id');
         $this->db->where('code',$puskesmas);
         $this->db->where('tgl',date("Y-m-d",$dt['waktu_register']));

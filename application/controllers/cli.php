@@ -21,7 +21,6 @@ class Cli extends CI_Controller {
 			if(!empty($cl_phc->value)){
 				$this->pasien_search($cl_phc->value);
 			}
-
 		}else{
 			die("Please access via cli");
 		}
@@ -30,9 +29,11 @@ class Cli extends CI_Controller {
 	function loop($cl_phc=""){
 		$tanggal 	= date("Y-m-d");
 		$lastregid 	= "RJ".date("Ymd")."000";
+		$lastpanggilanid 	= $this->cli_model->getlastpanggilanid();
 
 		for($i=0;$i<6;$i++){
 			$this->update_antrian($cl_phc, $lastregid ,$tanggal);
+			$this->update_panggilan($cl_phc, $lastpanggilanid ,$tanggal);
 			sleep(10);
 		}
 	}
@@ -85,6 +86,59 @@ class Cli extends CI_Controller {
 						$this->pasien_search($cl_phc, $dt['cl_pid']);
 					}
 					echo "\n".$count." -> ".$cl_phc." :: ".$dt['reg_id'].":".$update_antrian;
+				}
+			}
+			echo "<br>".$cl_phc." synced: ".$count;
+		}else{
+			echo "\nNo data";
+		}
+	}
+
+	function update_panggilan($cl_phc="",$lastpanggilanid="",$tanggal=""){ //jalankan setiap 10 detik
+		$tanggal 			= $tanggal=="" ? date("Y-m-d") : $tanggal;
+		$lastpanggilanid	= $lastpanggilanid=="" ? "0" : $lastpanggilanid;
+
+		$config 	= $this->epus->get_config("get_data_panggilan");
+
+		$url 		= $config['server'];
+		$qr 		= $this->input->post("qr");
+
+		if ($cl_phc=='') {
+			$puskesmas 	="P".$this->session->userdata('puskesmas');
+		}else{
+			$puskesmas 	= $cl_phc;
+		}
+
+		$fields_string = array(
+        	'client_id' 		=> $config['client_id'],
+	        'kodepuskesmas' 	=> $puskesmas,
+	        'tanggal' 			=> $tanggal,
+	        'LastPanggilanId' 	=> $lastpanggilanid,
+	        'request_output' 	=> $config['request_output'],
+	        'request_time' 		=> $config['request_time'],
+	        'request_token' 	=> $config['request_token']
+	    );
+
+		$curl = curl_init();
+
+        curl_setopt($curl,CURLOPT_URL,$url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_POST,count($fields_string));
+		curl_setopt($curl,CURLOPT_POSTFIELDS, $fields_string);
+
+        $result = curl_exec($curl);
+		curl_close($curl);
+
+		$res = json_decode(($result), true);
+		$pbk = array();
+		if(is_array($res['content'])){
+			$panggilan = $res['content'];
+			$count 	= 0;
+			foreach ($panggilan as $dt) {
+				$insert_panggilan = $this->cli_model->insert_panggilan($dt);
+				$count++;
+				if($this->input->is_cli_request()) {
+					echo "\n".$count." -> ".$insert_panggilan;
 				}
 			}
 			echo "<br>".$cl_phc." synced: ".$count;
