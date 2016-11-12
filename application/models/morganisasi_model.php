@@ -57,6 +57,7 @@ class Morganisasi_model extends CI_Model {
     	$this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
     	$this->db->order_by('panggilan_id','asc');
     	$this->db->where('status_panggil','0');
+    	
 		$data = $this->db->get('cl_panggilan')->row_array();
 
 		return $data;
