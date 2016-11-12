@@ -4601,7 +4601,7 @@ fieldset[disabled] .btn-vk.active {
 .margin-left-off{ margin-left: 0!important; }
 .main-poli{ border-radius: 5px; background-color: #37832b; min-height: 420px; display: block; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); margin-top: 10px; }
 .title-poli{ text-align: center; color:white; font-size: 44px}
-.title-sub-poli{ text-align: center; padding: 0; margin: 10px; font-size: 30px; font-weight: bold; }
+.title-sub-poli{ text-align: center; padding: 0; margin-top: 15px; font-size: 24px; font-weight: bold; }
 .content-poli{ border-radius: 5px; background-color: #fff; padding: 0; margin-top: 20px; min-height: 305px;}
 .list-poli{ padding: 10px;}
 .list-poli li{ list-style: none; padding: 5px; font-size: 18px; height: 100%; text-transform: uppercase; }

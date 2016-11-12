@@ -70,7 +70,7 @@ class Antrian_model extends CI_Model {
     }
 
     function get_antrian($kode){
-      $this->db->select('cl_pasien.nama,cl_reg.reg_antrian');
+      $this->db->select('cl_pasien.nama,cl_reg.reg_antrian,cl_reg.reg_antrian_poli');
       $this->db->where('status_periksa', 0);
       $this->db->where('reg_poli', $kode);
       $this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
