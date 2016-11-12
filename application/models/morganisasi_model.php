@@ -42,7 +42,7 @@ class Morganisasi_model extends CI_Model {
     function get_antrian(){
     	$tgl = "RJ".date("Ymd");
     	$this->db->like('reg_id',$tgl);
-    	$this->db->select('cl_pasien.cl_pid,cl_pasien.nama,cl_reg.reg_antrian,cl_reg.reg_poli');
+    	$this->db->select('cl_pasien.cl_pid,cl_pasien.nama,cl_reg.reg_antrian,cl_reg.reg_poli,cl_reg.reg_antrian_poli');
     	$this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
     	$this->db->order_by('reg_time','asc');
     	$this->db->where('status_periksa','0');
@@ -57,7 +57,7 @@ class Morganisasi_model extends CI_Model {
     	$this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
     	$this->db->order_by('panggilan_id','asc');
     	$this->db->where('status_panggil','0');
-    	
+
 		$data = $this->db->get('cl_panggilan')->row_array();
 
 		return $data;
