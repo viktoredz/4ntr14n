@@ -12,7 +12,7 @@ class Kiosk extends CI_Controller {
 		$data['title_form']  	= "Data Antrian";
 		$data['video']			= $this->antrian_model->get_video_playlist();
 
-    	$data['content']= $this->parser->parse("antrian/tv",$data,true);
+    	$data['content']= $this->parser->parse("antrian/kiosk",$data,true);
 		$this->template->show($data,"kiosk");
   	}	
 
