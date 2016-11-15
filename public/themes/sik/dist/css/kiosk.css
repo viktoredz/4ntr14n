@@ -51,11 +51,30 @@ body {
   width: 100%;
   color: white;
   font-family: Calibri;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
-  padding-top: 50px;
+  padding-top: 40px;
+  padding-bottom: 10px;
   float: center;
   position: relative;
+}
+#daftar_id input{
+  width: 50%;
+  color: #666666;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+#daftar_btn{
+  font-size: 24px;
+  padding: 20px;
+}
+#daftar_btn button{
+  width: 200px;
+}
+#footer{
+  padding-top: 80px;
+  color:white;
 }
 #logo_epus {
   max-height: 65px;
@@ -66,12 +85,18 @@ body {
 }
 #logo_pus {
   top: 50px;
-  height: 220px;
+  height: 200px;
   float: center;
   position: relative;
 
 }
-/* Layout */
+#logo_pus2{
+  top: 50px;
+  height: 150px;
+  float: center;
+  position: relative;
+
+}/* Layout */
 .wrapper {
   text-align:center;
   width: 100%;

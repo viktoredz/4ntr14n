@@ -5,6 +5,24 @@ class Antrian_model extends CI_Model {
         parent::__construct();
     }
 
+    function get_puskesmas($value=''){
+      $value = "P".($value != "" ? $value : $this->session->userdata('puskesmas'));
+      $this->db->where('code',$value);
+      $puskesmas = $this->db->get('cl_phc')->row();
+      
+      return $puskesmas->value;
+    }
+
+    function get_district(){
+      $this->db->where('key','district');
+      $district = $this->db->get('app_config')->row();
+      $this->db->where('code',$district->value);
+
+      $district = $this->db->get('cl_district')->row();
+      
+      return ucwords(strtolower($district->value));
+    }
+
     function get_video_playlist(){
         $this->db->where('status',1);
         $this->db->order_by('id','asc');
