@@ -32,8 +32,10 @@ class Cli extends CI_Controller {
 		$lastpanggilanid 	= $this->cli_model->getlastpanggilanid();
 
 		for($i=0;$i<20;$i++){
-			$this->update_antrian($cl_phc, $lastregid ,$tanggal);
 			$this->update_panggilan($cl_phc, $lastpanggilanid ,$tanggal);
+			if($i%2==0) {
+				$this->update_antrian($cl_phc, $lastregid ,$tanggal);
+			}	
 			sleep(3);
 		}
 	}
