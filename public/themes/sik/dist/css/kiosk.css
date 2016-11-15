@@ -98,6 +98,7 @@ body {
   float: left;
 }
 #poli-icon{
+  cursor: pointer;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   background: #37832b;
   color:white;
@@ -109,6 +110,21 @@ body {
   float: left;
   margin:0;
   border: 10px solid #37832b;
+}
+#poli-icon img{
+  position: relative;
+  float: left;
+  left: 30px;
+  bottom: -40px;
+  width: 120px;
+}
+#poli-icon label{
+  text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
+  width: 200px;
+  left:0px;
+  text-align:center;
+  color:yellow;
+  position: fixed;
 }
 #logo_epus {
   max-height: 65px;

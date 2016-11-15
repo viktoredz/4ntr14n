@@ -1,13 +1,12 @@
-<div id="popup">
-  
+<div id="popup" style="display:none;">
+  <div id="popup_title">ePuskesmas</div><div id="popup_content">{popup}</div>
 </div>
-
 <div id="front">
   <img id="logo_pus" src="<?php echo base_url()?>public/themes/sik/dist/img/logo-big.png">
   <div id="pus_name">PUSKESMAS {puskesmas}</div>
   <div id="dinas_name">Dinas Kesehatan {district}</div>
   <div id="daftar">PENDAFTARAN PASIEN</div>
-  <div id="daftar_id"><input type="text" name="id_pasien" placeholder="Silahkan Masukkan No BPJS/NIK"></div>
+  <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan No BPJS/NIK"></div>
   <div id="daftar_btn"><button type="button" id="btn-daftar" class="btn-lg btn-warning"><i class="fa fa-search"></i> CARI </button></div>
 </div>
 
@@ -26,7 +25,10 @@
           </div>
           <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1100px; height: 200px; overflow: hidden;">
               <?php foreach ($poli as $rows) { ?>
-                <div id="poli-icon"><?php echo $rows['value']?></div>
+                <div id="poli-icon">
+                  <img src="<?php echo base_url()?>media/img/<?php echo $rows['kode']?>.svg">
+                  <label><?php echo $rows['value']?></label>
+                </div>
               <?php }?>
           </div>
           <!-- Bullet Navigator -->
@@ -40,9 +42,6 @@
           <span data-u="arrowleft" class="jssora03l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
           <span data-u="arrowright" class="jssora03r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
       </div>
-
-
-
   </div>
   </div>
 </div>
@@ -56,47 +55,67 @@
 <div id="footer">Powered by Infokes Indonesia</div>
 <script type="text/javascript">
   $(function () {
+    theme = "bootstrap";
+
+    $("#popup").jqxWindow({
+      theme: theme, resizable: false,
+      width: 440,
+      height: 300,
+      isModal: true, autoOpen: false, modalOpacity: 0.4
+    });
 
     $("#btn-daftar").click(function(){
-      $("#front").hide();
-      $("#main").show('fade');
+      var idpasien = $("[name='id_pasien']").val();
+      if(idpasien.length < 13){
+        $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>Nomor NIK atau BPJS tidak benar.<br>Silahkan periksa kembali.<br><br>Terimakasih.<br><br><br><br><button class='btn-lg btn-danger' onClick='tutup()'>TUTUP</button><br><br></div>");
+      }else{
+        if(idpasien.length == 13){
 
-      var jssor_1_options = {
-        $AutoPlay: true,
-        $AutoPlaySteps: 1,
-        $SlideDuration: 600,
-        $SlideWidth: 200,
-        $SlideSpacing: 25,
-        $Cols: 5,
-        $ArrowNavigatorOptions: {
-          $Class: $JssorArrowNavigator$,
-          $Steps: 5
-        },
-        $BulletNavigatorOptions: {
-          $Class: $JssorBulletNavigator$,
-          $SpacingX: 1,
-          $SpacingY: 1
+
+          $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>Nomor BPJS anda: "+idpasien+"<br>Silahkan periksa kembali.<br><br>Terimakasih.<br><br><br><button class='btn-lg btn-success' onClick='mainpage()'>OK</button></div>");
+        }else{
+
+
+          $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>NIK anda: "+idpasien+"<br>Silahkan periksa kembali.<br><br>Terimakasih.<br><br><br><button class='btn-lg btn-success' onClick='mainpage()'>OK</button></div>");
         }
-      };
+      }
 
-      var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-
-      ScaleSlider();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $("#popup").jqxWindow('open');
     });
   });
 
-    function ScaleSlider() {
-        var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
-        if (refSize) {
-            refSize = Math.min(refSize, 1100);
-            jssor_1_slider.$ScaleWidth(refSize);
-        }
-        else {
-            window.setTimeout(ScaleSlider, 30);
-        }
-    }
-    $(window).bind("load", ScaleSlider);
-    $(window).bind("resize", ScaleSlider);
-    $(window).bind("orientationchange", ScaleSlider);
+  function mainpage(){
+    setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 60000);
+
+    $("#front").hide();
+    $("#main").show('fade');
+
+    var jssor_1_options = {
+      $AutoPlay: true,
+      $AutoPlaySteps: 1,
+      $SlideDuration: 600,
+      $SlideWidth: 200,
+      $SlideSpacing: 25,
+      $Cols: 5,
+      $ArrowNavigatorOptions: {
+        $Class: $JssorArrowNavigator$,
+        $Steps: 5
+      },
+      $BulletNavigatorOptions: {
+        $Class: $JssorBulletNavigator$,
+        $SpacingX: 1,
+        $SpacingY: 1
+      }
+    };
+
+    var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+    $("#popup").jqxWindow('close');
+  }
+
+  function tutup(){
+    $("#popup").jqxWindow('close');
+  }
 
 </script>

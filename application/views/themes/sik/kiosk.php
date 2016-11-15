@@ -9,10 +9,13 @@
         @import url(<?php echo base_url()?>public/themes/sik/bootstrap/css/bootstrap.min.css);
         @import url(<?php echo base_url()?>public/themes/sik/bootstrap/css/font-awesome.min.css);
         @import url(<?php echo base_url()?>public/themes/sik/dist/css/kiosk.css);
+        @import url(<?php echo base_url()?>plugins/js/jqwidgets/styles/jqx.base.css);
     </style>
   
     <script src="<?php echo base_url()?>plugins/js/jQuery-2.1.3.min.js"></script>
     <script src="<?php echo base_url()?>plugins/js/jssor.slider-21.1.6.mini.js" type="text/javascript"></script>
+    <script type="text/javascript" language="javascript" src="<?php echo base_url()?>plugins/js/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" language="javascript" src="<?php echo base_url()?>plugins/js/jqwidgets/jqxwindow.js"></script>
    
   </head>
   <body class="skin-green sidebar-mini wysihtml5-supported">
