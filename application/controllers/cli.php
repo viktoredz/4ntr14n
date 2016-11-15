@@ -29,9 +29,9 @@ class Cli extends CI_Controller {
 	function loop($cl_phc=""){
 		$tanggal 	= date("Y-m-d");
 		$lastregid 	= "RJ".date("Ymd")."000";
-		$lastpanggilanid 	= $this->cli_model->getlastpanggilanid();
 
 		for($i=0;$i<20;$i++){
+			$lastpanggilanid = $this->cli_model->getlastpanggilanid();
 			$this->update_panggilan($cl_phc, $lastpanggilanid ,$tanggal);
 			if($i%2==0) {
 				$this->update_antrian($cl_phc, $lastregid ,$tanggal);
