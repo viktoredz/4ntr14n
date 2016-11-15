@@ -146,7 +146,7 @@
         $.get("<?php echo base_url()?>morganisasi/panggilan/1", function(res){
           $("#panggilan").html(res);
         });
-       },2000);
+       },10000);
       $("[name='status_panggilan_interval']").val(panggilanLoop);
 
     }else{
