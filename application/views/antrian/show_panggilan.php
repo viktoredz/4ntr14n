@@ -15,14 +15,16 @@
 	function playmp3(no,playlist){
 		var audioElement = document.createElement('audio');
 		if(playlist[no]!= undefined && playlist[no]!= ''){
-		    audioElement.setAttribute('src', "http://localhost/antrian/public/sound/" + playlist[no] + ".mp3");
+		    audioElement.setAttribute('src', "<?php echo base_url()?>public/sound/" + playlist[no] + ".mp3");
 	        audioElement.setAttribute('autoplay', 'autoplay');
 	        audioElement.play();
 		}
 
         if(playlist[no] == "nomorantrian") timeout = 1500;
         else timeout = 1000;
-		setTimeout('playmp3('+(++no)+',playlist)',timeout);
+
+        no = no+1;
+		setTimeout('playmp3('+no+',playlist)',timeout);
         return true;
 	}	
 
