@@ -58,7 +58,7 @@ class Antrian_model extends CI_Model {
       $this->db->limit($limit,$start);
       $poli = $this->db->get('cl_clinic')->result_array();
       foreach ($poli as $rows) {
-        $this->db->select('MIN(reg_antrian) as reg_antrian');
+        $this->db->select('MIN(reg_antrian) as reg_antrian,reg_antrian_poli');
         $this->db->where('reg_poli',$rows['kode']);
         $this->db->where('status_periksa',0);
         $antrian = $this->db->get('cl_reg')->row();
