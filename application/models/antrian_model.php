@@ -47,6 +47,7 @@ class Antrian_model extends CI_Model {
     }
 
     function get_list_poli($page){
+      $start_date = mktime(0,0,0,date('m'),date('d'),date('Y'));
       $data = array();
       $dt = array();
 
@@ -61,6 +62,7 @@ class Antrian_model extends CI_Model {
         $this->db->select('MIN(reg_antrian) as reg_antrian,reg_antrian_poli');
         $this->db->where('reg_poli',$rows['kode']);
         $this->db->where('status_periksa',0);
+        $this->db->where('reg_time >', $start_date);
         $antrian = $this->db->get('cl_reg')->row();
 
         $dt['nomor']  = !empty($antrian->reg_antrian_poli) ? $antrian->reg_antrian_poli : "-";
