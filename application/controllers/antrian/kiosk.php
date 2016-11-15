@@ -10,8 +10,9 @@ class Kiosk extends CI_Controller {
     	$data['title_group'] 	= "Antrian";
 		$data['title_form']  	= "Data Antrian";
 
-		$data['puskesmas']= $this->antrian_model->get_puskesmas();
-		$data['district']= $this->antrian_model->get_district();
+		$data['puskesmas']	= $this->antrian_model->get_puskesmas();
+		$data['district']	= $this->antrian_model->get_district();
+		$data['poli']		= $this->antrian_model->get_poli_daftar();
 
     	$data['content']= $this->parser->parse("antrian/kiosk",$data,true);
 		$this->template->show($data,"kiosk");

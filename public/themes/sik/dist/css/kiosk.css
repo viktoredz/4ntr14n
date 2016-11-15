@@ -74,7 +74,41 @@ body {
 }
 #footer{
   padding-top: 80px;
+  padding-bottom: 20px;
   color:white;
+}
+#poli{
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  top: 50px;
+  background: white;
+  position: relative;
+  border-radius: 10px;
+  height: 290px;
+  width: 90%;
+  margin: 0 auto;
+}
+#poli-header{
+  background: #1ca82d;
+  font-size: 30px;
+  padding:5px;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+  width: 100%; 
+  position: relative;
+  float: left;
+}
+#poli-icon{
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  background: #37832b;
+  color:white;
+  font-size: 24px;
+  border-radius: 10px;
+  width: 200px; 
+  height: 200px; 
+  position: relative;
+  float: left;
+  margin:0;
+  border: 10px solid #37832b;
 }
 #logo_epus {
   max-height: 65px;
@@ -4745,3 +4779,55 @@ fieldset[disabled] .btn-vk.active {
         text-shadow: 0 0 20px #000;
     };
 }
+
+        .jssorb03 {
+            position: absolute;
+        }
+        .jssorb03 div, .jssorb03 div:hover, .jssorb03 .av {
+            position: absolute;
+            display: none;
+            /* size of bullet elment */
+            width: 21px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+            color: white;
+            font-size: 10px;
+            background: url('../img/b03.png') no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .jssorb03 div { background-position: -5px -4px; }
+        .jssorb03 div:hover, .jssorb03 .av:hover { background-position: -35px -4px; }
+        .jssorb03 .av { background-position: -65px -4px; }
+        .jssorb03 .dn, .jssorb03 .dn:hover { background-position: -95px -4px; }
+
+        /* jssor slider arrow navigator skin 03 css */
+        /*
+        .jssora03l                  (normal)
+        .jssora03r                  (normal)
+        .jssora03l:hover            (normal mouseover)
+        .jssora03r:hover            (normal mouseover)
+        .jssora03l.jssora03ldn      (mousedown)
+        .jssora03r.jssora03rdn      (mousedown)
+        .jssora03l.jssora03ldn      (disabled)
+        .jssora03r.jssora03rdn      (disabled)
+        */
+        .jssora03l, .jssora03r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            background: url('../img/a03.png') no-repeat;
+            overflow: hidden;
+        }
+        .jssora03l { background-position: -3px -33px; }
+        .jssora03r { background-position: -63px -33px; }
+        .jssora03l:hover { background-position: -123px -33px; }
+        .jssora03r:hover { background-position: -183px -33px; }
+        .jssora03l.jssora03ldn { background-position: -243px -33px; }
+        .jssora03r.jssora03rdn { background-position: -303px -33px; }
+        .jssora03l.jssora03lds { background-position: -3px -33px; opacity: .3; pointer-events: none; }
+        .jssora03r.jssora03rds { background-position: -63px -33px; opacity: .3; pointer-events: none; }

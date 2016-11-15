@@ -89,6 +89,13 @@ class Antrian_model extends CI_Model {
       }
     }
 
+    function get_poli_daftar(){
+      $this->db->where('is_daftar',1);
+      $poli = $this->db->get('cl_clinic')->result_array();
+
+      return $poli;
+    }
+
     function get_antrian($kode){
       $start_date = mktime(0,0,0,date('m'),date('d'),date('Y'));
 
