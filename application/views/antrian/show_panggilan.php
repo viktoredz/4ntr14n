@@ -15,7 +15,7 @@
 	function playmp3(no,playlist){
 		var audioElement = document.createElement('audio');
 		if(playlist[no]!= undefined && playlist[no]!= ''){
-		    audioElement.setAttribute('src', "<?php echo base_url()?>/public/sound/" + playlist[no] + ".mp3");
+		    audioElement.setAttribute('src', "http://localhost/antrian/public/sound/" + playlist[no] + ".mp3");
 	        audioElement.setAttribute('autoplay', 'autoplay');
 	        audioElement.play();
 		}
