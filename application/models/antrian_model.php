@@ -63,7 +63,7 @@ class Antrian_model extends CI_Model {
         $this->db->where('status_periksa',0);
         $antrian = $this->db->get('cl_reg')->row();
 
-        $dt['nomor']  = !empty($antrian->reg_antrian) ? $antrian->reg_antrian : "-";
+        $dt['nomor']  = !empty($antrian->reg_antrian_poli) ? $antrian->reg_antrian_poli : "-";
         $dt['kode']   = $rows['kode'];
         $data[]       = $dt; 
       }
