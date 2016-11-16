@@ -48,10 +48,22 @@
   </div>
 </div>
 
-<div id="end" style="display:none">
-  <img id="logo_pus2" src="<?php echo base_url()?>public/themes/sik/dist/img/logo-big.png">
-  <div id="pus_name">PUSKESMAS {puskesmas}</div>
-  <div id="dinas_name">Dinas Kesehatan {district}</div>
+<div id="print_area" style="display:none">
+  <div>
+    PUSKESMAS CILEDUG<br>
+    Jalan Kalisari<br>
+    ==================<br>
+    No Antrian<br>
+    <div class='antrian-no'>999</div>
+    <br>
+    Waktu : <?php echo date("d-m-Y H:i:s")?><br>
+    RM : P12312312312312<br>
+    Nama : RHAVKA MUHAMMAD AFFA<br>
+    Poli : UMUM<br>
+    ==================<br>
+    Semoga lekas sembuh<br>
+    www.infokes.id
+  </div>
 </div>
 
 <div id="footer">Powered by Infokes Indonesia</div>
@@ -158,6 +170,12 @@
     var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
 
     $("#popup").jqxWindow('close');
+  }
+
+  function print(){
+    $("#print_area").show();
+    jQuery.print("#print_area");
+    $("#print_area").hide();
   }
 
   function tutup(){

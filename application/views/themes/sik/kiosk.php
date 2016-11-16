@@ -16,7 +16,7 @@
     <script src="<?php echo base_url()?>plugins/js/jssor.slider-21.1.6.mini.js" type="text/javascript"></script>
     <script type="text/javascript" language="javascript" src="<?php echo base_url()?>plugins/js/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" language="javascript" src="<?php echo base_url()?>plugins/js/jqwidgets/jqxwindow.js"></script>
-   
+    <script type="text/javascript" language="javascript" src="<?php echo base_url()?>plugins/js/jquery.printPage.js"></script>
   </head>
   <body class="skin-green sidebar-mini wysihtml5-supported">
     <div class="wrapper">
