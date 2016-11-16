@@ -17,6 +17,6 @@
     ============================<br>
     Semoga lekas sembuh<br>
     www.infokes.id
+    <br><br>...
   </div>
-  <br><br>
 </div>

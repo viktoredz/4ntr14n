@@ -47,10 +47,8 @@
   </div>
   </div>
 </div>
-
-<div id="print_area" style="display:none"></div>
-
 <div id="footer">Powered by Infokes Indonesia</div>
+<div id="print_area" style="display:none"></div>
 <script type="text/javascript">
   $(function () {
     theme = "bootstrap";
@@ -163,6 +161,7 @@
     $("#print_area").show();
     jQuery.print("#print_area");
     $("#print_area").hide();
+    window.focus();
   }
 
   function tutup(){
