@@ -52,14 +52,8 @@ class Kiosk extends CI_Controller {
   		echo json_encode($data);
 	}
 
-	function prints(){
-		$data = array();
-
-    	$this->parser->parse("antrian/print",$data);
-	}
-
 	function daftar($cl_pid,$poli){
-
+		$data = array();
 
 		// $pasien		= $this->antrian_model->get_bpjs($id);
 		// if(!empty($pasien->cl_pid)){
@@ -73,8 +67,11 @@ class Kiosk extends CI_Controller {
 		// 		'content'	=> "Maaf <b>Nomor BPJS</b> anda tidak ditemukan<br>atau belum terdaftar.<br><br>Silahkan melakukan pendaftaran melalui<br><b>LOKET PENDAFTARAN</b><br><br>Terimakasih.<br><br><button class='btn-lg btn-success' onClick='tutup()' style='width:200px'>OK</button>"
 		// 	);
 		// }
+
+		$print = $this->parser->parse("antrian/print",$data,true);
 		$data = array(
-			'content'	=> "Terimakasih.<br><br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>"
+			'content'	=> "Terimakasih.<br><br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>",
+			'print'		=> $print
 		);
 
   		echo json_encode($data);

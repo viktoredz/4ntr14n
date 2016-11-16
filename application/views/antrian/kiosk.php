@@ -48,23 +48,7 @@
   </div>
 </div>
 
-<div id="print_area" style="display:none">
-  <div>
-    PUSKESMAS CILEDUG<br>
-    Jalan Kalisari<br>
-    ==================<br>
-    No Antrian<br>
-    <div class='antrian-no'>999</div>
-    <br>
-    Waktu : <?php echo date("d-m-Y H:i:s")?><br>
-    RM : P12312312312312<br>
-    Nama : RHAVKA MUHAMMAD AFFA<br>
-    Poli : UMUM<br>
-    ==================<br>
-    Semoga lekas sembuh<br>
-    www.infokes.id
-  </div>
-</div>
+<div id="print_area" style="display:none"></div>
 
 <div id="footer">Powered by Infokes Indonesia</div>
 <script type="text/javascript">
@@ -136,6 +120,7 @@
         dataType: 'json',
         success: function (data) { 
           $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>"+data.content+"</div>");
+          $("#print_area").html(data.print);
         }
       });
 
@@ -173,6 +158,7 @@
   }
 
   function print(){
+ 
     $("#print_area").show();
     jQuery.print("#print_area");
     $("#print_area").hide();
