@@ -158,11 +158,11 @@
   }
 
   function print(){
+    setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 1000);
+
     $("#print_area").show();
     jQuery.print("#print_area");
     $("#print_area").hide();
-
-    setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 1000);
   }
 
   function tutup(){

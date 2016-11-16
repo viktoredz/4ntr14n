@@ -1,4 +1,4 @@
-<div style="text-align:center;width:230px;font-size:14px">
+<div style="text-align:center;width:230px;font-size:16px">
   <div>
     <b>PUSKESMAS CILEDUG</b><br>
     Jalan Kalisari<br>
@@ -16,6 +16,7 @@
   <div>
     ============================<br>
     Semoga lekas sembuh<br>
-    www.infokes.id<br>
+    www.infokes.id
   </div>
+  <br><br>
 </div>
