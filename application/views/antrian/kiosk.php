@@ -16,6 +16,7 @@
   <div id="dinas_name">Dinas Kesehatan {district}</div>
   <div id="poli">
     <input type="hidden" id="cl_pid">
+    <input type="hidden" id="poli">
     <div id="poli-header">Nama Pasien</div>
     <div>
       <div id="jssor_1" style="position: relative; margin: 0 auto; top: 20px; left: 0px; width: 1100px; height: 200px; overflow: hidden; visibility: hidden;">
@@ -26,7 +27,7 @@
           </div>
           <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1100px; height: 200px; overflow: hidden;">
               <?php foreach ($poli as $rows) { ?>
-                <div id="poli-icon">
+                <div id="poli-icon" onClick="daftar('<?php echo $rows['kode']?>','<?php echo $rows['value']?>')">
                   <img src="<?php echo base_url()?>media/img/<?php echo $rows['kode']?>.svg">
                   <label><?php echo $rows['value']?></label>
                 </div>
@@ -60,7 +61,7 @@
 
     $("#popup").jqxWindow({
       theme: theme, resizable: false,
-      width: 450,
+      width: 460,
       height: 350,
       isModal: true, autoOpen: false, modalOpacity: 0.4
     });
@@ -80,7 +81,7 @@
               $("#cl_pid").val(data.cl_pid);
               $("#poli-header").html(data.nama);
 
-              $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>Nomor BPJS anda: "+idpasien+"<br>"+data+".<br><br>Terimakasih.<br><br><br><button class='btn-lg btn-success' onClick='mainpage()'>OK</button></div>");
+              $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>"+data.content+"</div>");
             }
           });
         }else{
@@ -103,6 +104,32 @@
       $("#popup").jqxWindow('open');
     });
   });
+
+  function daftar(kode,poli){
+      var nama = $("#poli-header").html();
+      $("#poli").val(kode);
+
+      $("#popup_content").html("<div style='padding-top:35px;font-size:24px' align='center'>"+nama+"<br><br>Lanjutkan pendaftaran<br><br>ke <b> "+poli+"</b> ? <br><div class='row' style='padding-top:40px'><div class='col-md-6'><button type='button' class='btn-lg btn-success' onClick='lanjut()' style='width:90%'>YA</button></div><div class='col-md-6'><button type='button' onClick='tutup()' class='btn-lg btn-danger' style='width:90%'>TIDAK</button></div></div></div>");
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $("#popup").jqxWindow('open');
+  }
+
+  function lanjut(){
+      var poli = $("#poli").val();
+      var cl_pid = $("#cl_pid").val();
+
+      $.ajax({ 
+        type: 'GET', 
+        url: '<?php echo base_url().'antrian/kiosk/daftar/'; ?>'+ cl_pid +"/"+poli, 
+        dataType: 'json',
+        success: function (data) { 
+          $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>"+data.content+"</div>");
+        }
+      });
+
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $("#popup").jqxWindow('open');
+  }
 
   function mainpage(){
     setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 60000);

@@ -24,12 +24,10 @@ class Kiosk extends CI_Controller {
 			$data = array(
 				'cl_pid'	=> $pasien->cl_pid,
 				'nama'		=> $pasien->nama,
-				'content'	=> "Selamat datang, <br><b>".$pasien->nama."</b><br><br><div class='row' style='text-align:left'><div class='col-md-4'>&nbsp;&nbsp; Nomor RM:</div><div class='col-md-8'>".$pasien->cl_pid."</div></div><div class='row' style='text-align:left'><div class='col-md-4'>&nbsp;&nbsp; Alamat:</div><div class='col-md-8'>".$pasien->alamat."</div></div><br>Silahkan lanjutkan ke POLI tujuan anda.<br><br><button class='btn-lg btn-success' onClick='mainpage()' style='width:200px'>DAFTAR</button>"
+				'content'	=> "Selamat datang <b>".$pasien->nama."</b><br><br><div class='row'><div class='col-md-4' style='text-align:right'>Nomor RM :</div><div class='col-md-8' style='text-align:left'>".$pasien->cl_pid."</div></div><div class='row' ><div class='col-md-4' style='text-align:right'>Alamat :</div><div class='col-md-8' style='text-align:left'>".$pasien->alamat."</div></div><br><br>Silahkan lanjutkan ke POLI tujuan anda.<br><br><button class='btn-lg btn-success' onClick='mainpage()' style='width:200px'>DAFTAR</button>"
 			);
 		}else{
 			$data = array(
-				'cl_pid'	=> $pasien->cl_pid,
-				'nama'		=> $pasien->nama,
 				'content'	=> "Maaf <b>NIK</b> anda tidak ditemukan<br>atau belum terdaftar.<br><br>Silahkan melakukan pendaftaran melalui<br><b>LOKET PENDAFTARAN</b><br><br>Terimakasih.<br><br><button class='btn-lg btn-success' onClick='tutup()' style='width:200px'>OK</button>"
 			);
 		}
@@ -38,7 +36,19 @@ class Kiosk extends CI_Controller {
 	}	  	  	
 
 	function bpjs($id){
-		$data		= $this->antrian_model->get_bpjs($id);
-		echo "BPJS";
+		$pasien		= $this->antrian_model->get_bpjs($id);
+		if(!empty($pasien->cl_pid)){
+			$data = array(
+				'cl_pid'	=> $pasien->cl_pid,
+				'nama'		=> $pasien->nama,
+				'content'	=> "Selamat datang <b>".$pasien->nama."</b><br><br><div class='row'><div class='col-md-4' style='text-align:right'>Nomor RM :</div><div class='col-md-8' style='text-align:left'>".$pasien->cl_pid."</div></div><div class='row' ><div class='col-md-4' style='text-align:right'>Alamat :</div><div class='col-md-8' style='text-align:left'>".$pasien->alamat."</div></div><br><br>Silahkan lanjutkan ke POLI tujuan anda.<br><br><button class='btn-lg btn-success' onClick='mainpage()' style='width:200px'>DAFTAR</button>"
+			);
+		}else{
+			$data = array(
+				'content'	=> "Maaf <b>Nomor BPJS</b> anda tidak ditemukan<br>atau belum terdaftar.<br><br>Silahkan melakukan pendaftaran melalui<br><b>LOKET PENDAFTARAN</b><br><br>Terimakasih.<br><br><button class='btn-lg btn-success' onClick='tutup()' style='width:200px'>OK</button>"
+			);
+		}
+
+  		echo json_encode($data);
 	}
 }
