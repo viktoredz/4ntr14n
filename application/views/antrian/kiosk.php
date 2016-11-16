@@ -160,8 +160,6 @@
 
     $("#print_area").show();
     jQuery.print("#print_area");
-    $("#print_area").hide();
-    window.focus();
   }
 
   function tutup(){
