@@ -23,6 +23,16 @@ class Antrian_model extends CI_Model {
       return ucwords(strtolower($district->value));
     }
 
+    function get_nik($id=""){
+      $this->db->where('nik',$id);
+      $pasien = $this->db->get('cl_pasien')->row();
+      if(!empty($pasien->nama)){
+        return $pasien;
+      }else{
+        return false;
+      }
+    }
+
     function get_video_playlist(){
         $this->db->where('status',1);
         $this->db->order_by('id','asc');
