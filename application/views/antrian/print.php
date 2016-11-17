@@ -1,22 +1,32 @@
-<div style="text-align:center;width:230px;font-size:16px">
+<div style="text-align:center;width:250px;font-size:15px">
   <div>
-    <b>PUSKESMAS CILEDUG</b><br>
-    Jalan Kalisari<br>
-    ============================<br>
-    No Antrian<br>
-  <div style="font-size:40px;font-weight:bold">999</div>
-  <br>
-  </div>
+    <b>PUSKESMAS {puskesmas}</b><br>
+    {alamat}<br>
+    ===========================<br>
+    Nomor Antrian<br>
+  <div style="font-size:50px;font-weight:bold">{nomor}</div>
   <div style="text-align:left">
-    Poli : <b>UMUM</b><br>
-    Waktu : <?php echo date("d-m-Y H:i:s")?><br>
-    RM : P12312312312312<br>
-    Nama : Siapa aja boleh<br>
+    <div class="row">
+      <div class="col-xs-3">Poli</div>
+      <div class="col-xs-9">: <b>{poli}</b></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Waktu</div>
+      <div class="col-xs-9">: <?php echo date("d-m-Y H:i:s")?></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">RM</div>
+      <div class="col-xs-9">: {cl_pid}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Nama</div>
+      <div class="col-xs-9">: {nama}</div>
+    </div>
   </div>
   <div>
-    ============================<br>
-    Semoga lekas sembuh<br>
+    ===========================<br>
+    Semoga lekas sembuh.<br>
     www.infokes.id
-    <br><br>...
+    <br>.
   </div>
 </div>

@@ -56,34 +56,30 @@ class Kiosk extends CI_Controller {
 	function daftar($cl_pid,$poli){
 		$data = array();
 
-		// $pasien		= $this->antrian_model->get_bpjs($id);
-		// if(!empty($pasien->cl_pid)){
-		// 	$data = array(
-		// 		'cl_pid'	=> $pasien->cl_pid,
-		// 		'nama'		=> $pasien->nama,
-		// 		'content'	=> "Selamat datang <b>".$pasien->nama."</b><br><br><div class='row'><div class='col-md-4' style='text-align:right'>Nomor RM :</div><div class='col-md-8' style='text-align:left'>".$pasien->cl_pid."</div></div><div class='row' ><div class='col-md-4' style='text-align:right'>Alamat :</div><div class='col-md-8' style='text-align:left'>".$pasien->alamat."</div></div><br><br>Silahkan lanjutkan ke POLI tujuan anda.<br><br><button class='btn-lg btn-success' onClick='mainpage()' style='width:200px'>DAFTAR</button>"
-		// 	);
-		// }else{
-		// 	$data = array(
-		// 		'content'	=> "Maaf <b>Nomor BPJS</b> anda tidak ditemukan<br>atau belum terdaftar.<br><br>Silahkan melakukan pendaftaran melalui<br><b>LOKET PENDAFTARAN</b><br><br>Terimakasih.<br><br><button class='btn-lg btn-success' onClick='tutup()' style='width:200px'>OK</button>"
-		// 	);
-		// }
-
   		$success	= "<br><br>Terimakasih.<br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>"; 
   		$failed		= "<br><br>Terimakasih.<br><br><button class='btn-lg btn-danger' onClick='tutup()' style='width:200px'>TUTUP</button>"; 
   		$content	= "Maaf, pendaftaran sedang tidak dapat dilakukan<br><br><br>Silahkan menuju ke LOKET pendaftaran.";
       	$valid_puskesmas 	= "P".$this->session->userdata('puskesmas');
+      	$puskesmas 			= $this->epus->get_puskesmas($valid_puskesmas);
+		$district			= $this->antrian_model->get_district();
 		$api 				= $this->epus_pendaftaran($cl_pid, "REG ".date("d-m-Y")." ".$poli, $valid_puskesmas);
 
 		if(is_array($api) && isset($api['status_code']['code']) && intval($api['status_code']['code']) < 400){
 			if(intval($api['status_code']['code']) == 206){
 				$reply 		= isset($api['content']['validation']) ? $api['content']['validation']."<br><br><br>".$failed : "Maaf, ".$content.$failed;
 			}else{
-				$reply 		= isset($api['content']['kiosk']) ? $api['content']['kiosk'].$success : "Maaf, ".$content.$failed;
+				$reply 			= isset($api['content']['kiosk']) ? $api['content']['kiosk'].$success : "Maaf, ".$content.$failed;
+				$data['nomor']	= $api['content']['nomor'];
+				$data['poli']	= $api['content']['poli'];
+				$data['nama']	= $api['content']['nama'];
 			}
 		}else{
       		$reply		= $content.$failed; 
 		}
+
+		$data['cl_pid'] 	= $cl_pid;
+		$data['puskesmas'] 	= $puskesmas->value;
+		$data['alamat'] 	= $district;
 
 		$print = $this->parser->parse("antrian/print",$data,true);
 		$data = array(

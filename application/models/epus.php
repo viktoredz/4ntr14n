@@ -29,4 +29,11 @@ class Epus extends CI_Model {
         //     die();
         return $data;
     }
+
+    function get_puskesmas($code){
+        $this->db->where('code',$code);
+        $puskesmas = $this->db->get('cl_phc')->row();
+
+        return $puskesmas;
+    }
 }
