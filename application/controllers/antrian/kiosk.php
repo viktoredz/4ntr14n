@@ -69,14 +69,20 @@ class Kiosk extends CI_Controller {
 		// 	);
 		// }
 
-      	$content 			= "Hi, Terimakasih.<br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>"; 
+  		$success	= "<br><br>Terimakasih.<br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>"; 
+  		$failed		= "<br><br>Terimakasih.<br><br><button class='btn-lg btn-danger' onClick='tutup()' style='width:200px'>TUTUP</button>"; 
+  		$content	= "Maaf, pendaftaran sedang tidak dapat dilakukan<br><br><br>Silahkan menuju ke LOKET pendaftaran.";
       	$valid_puskesmas 	= "P".$this->session->userdata('puskesmas');
 		$api 				= $this->epus_pendaftaran($cl_pid, "REG ".date("d-m-Y")." ".$poli, $valid_puskesmas);
 
-		if(is_array($api) && intval($api['status_code']['code']) < 400){
-			$reply = isset($api['content']['validation']) ? $api['content']['validation'] : "Maaf, ".$content;
+		if(is_array($api) && isset($api['status_code']['code']) && intval($api['status_code']['code']) < 400){
+			if(intval($api['status_code']['code']) == 206){
+				$reply 		= isset($api['content']['validation']) ? $api['content']['validation']."<br><br><br>".$failed : "Maaf, ".$content.$failed;
+			}else{
+				$reply 		= isset($api['content']['kiosk']) ? $api['content']['kiosk'].$success : "Maaf, ".$content.$failed;
+			}
 		}else{
-			$reply = $content;
+      		$reply		= $content.$failed; 
 		}
 
 		$print = $this->parser->parse("antrian/print",$data,true);
