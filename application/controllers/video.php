@@ -35,7 +35,7 @@ class Video extends CI_Controller {
   function submit_video(){
     if (isset($_FILES['video']['name']) && $_FILES['video']['name'] != '') {
         $date = date("d-m-Y");
-        $path = './media/'.$this->session->userdata('puskesmas');
+        $path = './media/';
         if (!is_dir($path)) {
             mkdir($path, 0777, TRUE);
         }
@@ -85,7 +85,7 @@ class Video extends CI_Controller {
   function delete_video($id="", $video){
 		//$this->authentication->verify('antrian','del');
     $this->load->helper("file");
-    $path = "./media/" . $this->session->userdata('puskesmas') . "/" . $video;
+    $path = "./media/". $video;
     unlink($path);
 		if($this->antrian_model->delete_video($id)){
 			$this->session->set_flashdata('alert', 'Delete data ('.$id.')');

@@ -115,7 +115,7 @@
 			columns: [
         { text: 'Video', datafield: 'video', align: 'center', width: '60%', cellsrenderer: function (row) {
 				    var dataRecord = $("#jqxgrid").jqxGrid('getrowdata', row);
-					  return "<div style='width:100%;padding-top:5px;padding-bottom: 5px; text-align:center'><video width='300' muted controls><source type='video/mp4' src='<?php echo base_url() ?>media/<?php echo $this->session->userdata('puskesmas'); ?>/"+dataRecord.video+"'</source></video></div>";
+					  return "<div style='width:100%;padding-top:5px;padding-bottom: 5px; text-align:center'><video width='300' muted controls><source type='video/mp4' src='<?php echo base_url() ?>media/"+dataRecord.video+"'</source></video></div>";
           }
         },
         { text: 'Status', datafield: 'status', align: 'center', width: '40%', cellsrenderer: function (row) {

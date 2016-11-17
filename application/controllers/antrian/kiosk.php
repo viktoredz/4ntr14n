@@ -4,6 +4,7 @@ class Kiosk extends CI_Controller {
     public function __construct(){
 		parent::__construct();
 		$this->load->model('antrian_model');
+		$this->load->model('epus');
 	}
 
 	function index(){
@@ -68,12 +69,52 @@ class Kiosk extends CI_Controller {
 		// 	);
 		// }
 
+      	$content 			= "Hi, Terimakasih.<br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>"; 
+      	$valid_puskesmas 	= "P".$this->session->userdata('puskesmas');
+		$api 				= $this->epus_pendaftaran($cl_pid, "REG ".date("d-m-Y")." ".$poli, $valid_puskesmas);
+
+		if(is_array($api) && intval($api['status_code']['code']) < 400){
+			$reply = isset($api['content']['validation']) ? $api['content']['validation'] : "Maaf, ".$content;
+		}else{
+			$reply = $content;
+		}
+
 		$print = $this->parser->parse("antrian/print",$data,true);
 		$data = array(
-			'content'	=> "Terimakasih.<br><br><br><button class='btn-lg btn-success btnPrint' onClick='print();tutup()' style='width:200px'>OK</button>",
+			'content'	=> $reply,
 			'print'		=> $print
 		);
 
   		echo json_encode($data);
 	}
+
+	function epus_pendaftaran($cl_pid="", $sms="", $puskesmas){
+		$config 	= $this->epus->get_config("daftar_kunjunganpid_epus");
+		$url 		= $config['server'];
+
+		$fields_string = array(
+        	'client_id' 		=> $config['client_id'],
+	        'kodepuskesmas' 	=> $puskesmas,
+	        'cl_pid' 			=> $cl_pid,
+	        'isi_sms' 	 		=> $sms,
+	        'petugas' 	 		=> "puskesmas",
+	        'request_output' 	=> $config['request_output'],
+	        'request_time' 		=> $config['request_time'],
+	        'request_token' 	=> $config['request_token']
+	    );
+
+		$curl = curl_init();
+
+        curl_setopt($curl,CURLOPT_URL,$url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_POST,count($fields_string));
+		curl_setopt($curl,CURLOPT_POSTFIELDS, $fields_string);
+
+        $result = curl_exec($curl);
+		curl_close($curl);
+
+		$res = json_decode(($result), true);
+		return $res;
+	}	
+
 }

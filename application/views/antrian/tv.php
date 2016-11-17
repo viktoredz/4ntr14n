@@ -65,7 +65,7 @@ $(document).ready(function(){
     $.get(get_video, function(response){
       var d = JSON.parse(response);
       video_list = d;
-      video.src = "<?php echo base_url() . 'media/' . $this->session->userdata('puskesmas'); ?>/"+video_list[0];
+      video.src = "<?php echo base_url() . 'media/'; ?>/"+video_list[0];
       video.play();
     });
 
