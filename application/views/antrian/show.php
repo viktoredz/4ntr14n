@@ -100,9 +100,6 @@
             </div>
           <?php
           }?>
-            <div class="col-md-12">
-              <label>APOTIK</label> 
-            </div>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
   </div><!-- /.col -->
