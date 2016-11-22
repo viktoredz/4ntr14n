@@ -112,6 +112,7 @@
       var poli = $("#poli").val();
       var cl_pid = $("#cl_pid").val();
 
+      $("#popup_content").html("<div style='padding-top:35px;font-size:24px' align='center'><br>Silahkan tunggu..<br><br>Mendaftarkan ke <br><b> "+poli+"</b><br><br>Terimakasih.</div>");
       $.ajax({ 
         type: 'GET', 
         url: '<?php echo base_url().'antrian/kiosk/daftar/'; ?>'+ cl_pid +"/"+poli, 
