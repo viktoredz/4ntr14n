@@ -33,14 +33,14 @@ class Cli extends CI_Controller {
 		for($i=0;$i<20;$i++){
 			$lastpanggilanid = $this->cli_model->getlastpanggilanid();
 			$this->update_panggilan($cl_phc, $lastpanggilanid ,$tanggal);
-			if($i%2==0) {
+			if($i%5==0) {
 				$this->update_antrian($cl_phc, $lastregid ,$tanggal);
 			}	
 			sleep(3);
 		}
 	}
 
-	function update_antrian($cl_phc="",$lastregid="",$tanggal=""){ //jalankan setiap 10 detik
+	function update_antrian($cl_phc="",$lastregid="",$tanggal=""){ //jalankan setiap 15 detik
 		$tanggal 	= $tanggal=="" ? date("Y-m-d") : $tanggal;
 		$lastregid	= $lastregid=="" ? "RJ".str_replace("-", "", $tanggal)."001" : $lastregid;
 
@@ -96,7 +96,7 @@ class Cli extends CI_Controller {
 		}
 	}
 
-	function update_panggilan($cl_phc="",$lastpanggilanid="",$tanggal=""){ //jalankan setiap 10 detik
+	function update_panggilan($cl_phc="",$lastpanggilanid="",$tanggal=""){ //jalankan setiap 3 detik
 		$tanggal 			= $tanggal=="" ? date("Y-m-d") : $tanggal;
 		$lastpanggilanid	= $lastpanggilanid=="" ? "0" : $lastpanggilanid;
 
