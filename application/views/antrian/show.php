@@ -31,7 +31,7 @@
     <input type="hidden" name="status_panggilan_interval">
     <a href="#" id="toogle_sound">
     <div class="info-box">
-      <span class="info-box-icon bg-yellow"><i class="fa fa-volume-up"></i></span>
+      <span class="info-box-icon bg-yellow"><i class="fa fa-bullhorn"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">PANGGINAL</span>
         <span class="info-box-number">Auto<BR>Sound</span>
@@ -42,7 +42,7 @@
   <div class="col-md-3 col-sm-6 col-xs-12">
     <a href="#" onclick="window.open('<?php echo base_url();?>antrian/kiosk', 'newwindow', 'menubar=no,location=no,resizable=no,scrollbars=no,fullscreen=yes, scrollbars=auto'); return false;">
     <div class="info-box">
-      <span class="info-box-icon bg-blue"><i class="fa fa-desktop"></i></span>
+      <span class="info-box-icon bg-blue"><i class="fa fa-tv"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">KIOSK</span>
         <span class="info-box-number">Full<BR>Screen</span>
