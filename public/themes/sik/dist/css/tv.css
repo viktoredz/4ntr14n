@@ -4617,6 +4617,7 @@ fieldset[disabled] .btn-vk.active {
   height: 40px;
   margin-top: 20px;
   background-color: #155A47;
+  font-weight: bold;
 }
 /*.running-text{ box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); position: absolute; width: 100%; height: 30px; background-color: #155A47; margin-top: 20px;}*/
 .running-text ul{ padding: 0; margin: 5px 0; }
