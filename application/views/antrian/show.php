@@ -33,7 +33,7 @@
     <div class="info-box">
       <span class="info-box-icon bg-yellow"><i class="fa fa-bullhorn"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">PANGGINAL</span>
+        <span class="info-box-text">PANGGILAN</span>
         <span class="info-box-number">Auto<BR>Sound</span>
       </div><!-- /.info-box-content -->
     </div><!-- /.info-box -->
