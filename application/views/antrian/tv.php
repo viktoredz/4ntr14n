@@ -7,7 +7,7 @@
 	          <div class="main-poli"></div>
 	        </div>
 	        <div class="col-md-7 video" >
-	            <video autoplay="true" id="video" controls onended="run()" muted>
+	            <video autoplay="true" id="video" controls onended="run()">
 	            </video>
 	        </div>
 	      </div>
