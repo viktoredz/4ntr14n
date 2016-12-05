@@ -1,13 +1,27 @@
 <div id="popup" style="display:none;">
-  <div id="popup_title">ePuskesmas</div><div id="popup_content">{popup}</div>
+  <div id="popup_title">ePuskesmas</div><div id="popup_content">loading . . .</div>
 </div>
 <div id="front">
   <img id="logo_pus" src="<?php echo base_url()?>public/themes/sik/dist/img/logo-big.png">
   <div id="pus_name">PUSKESMAS {puskesmas}</div>
   <div id="dinas_name">Dinas Kesehatan {district}</div>
+  <div id="pilih">Selamat Datang Di Puskesmas Kami</div>
+  <div id="daftar_btn">
+    <button type="button" id="btn-search" class="btn-lg btn-warning"><i class="fa fa-vcard-o" style="font-size:50px"></i><br>PASIEN LAMA </button>
+    <button type="button" id="btn-loket" class="btn-lg btn-danger"><i class="fa fa-user-circle" style="font-size:50px"></i><br>PASIEN BARU </button>
+  </div>
+</div>
+
+<div id="search" style="display:none">
+  <img id="logo_pus" src="<?php echo base_url()?>public/themes/sik/dist/img/logo-big.png">
+  <div id="pus_name">PUSKESMAS {puskesmas}</div>
+  <div id="dinas_name">Dinas Kesehatan {district}</div>
   <div id="daftar">PENDAFTARAN PASIEN</div>
   <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan No RM / NIK / No BPJS"></div>
-  <div id="daftar_btn"><button type="button" id="btn-daftar" class="btn-lg btn-warning"><i class="fa fa-search"></i> CARI </button></div>
+  <div id="daftar_btn">
+    <button type="button" id="btn-daftar" class="btn-lg btn-warning"><i class="fa fa-search"></i> &nbsp; CARI </button>
+    <button type="button" id="btn-kembali" class="btn-lg btn-primary"><i class="fa fa-reply"></i> &nbsp; KEMBALI </button>
+  </div>
 </div>
 
 <div id="main" style="display:none">
@@ -58,6 +72,30 @@
       width: 460,
       height: 350,
       isModal: true, autoOpen: false, modalOpacity: 0.4
+    });
+
+    $("#btn-loket").click(function(){
+        $.ajax({ 
+          type: 'GET', 
+          url: '<?php echo base_url().'antrian/kiosk/loket'; ?>', 
+          dataType: 'json',
+          success: function (data) { 
+            $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>"+data.content+"</div>");
+            $("#print_area").html(data.print);
+          }
+        });
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $("#popup").jqxWindow('open');
+    });
+
+    $("#btn-search").click(function(){
+      $("#front").hide();
+      $("#search").show('fade');
+    });
+
+    $("#btn-kembali").click(function(){
+      $("#search").hide();
+      $("#front").show('fade');
     });
 
     $("#btn-daftar").click(function(){
@@ -130,7 +168,7 @@
   function mainpage(){
     setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 60000);
 
-    $("#front").hide();
+    $("#search").hide();
     $("#main").show('fade');
 
     var jssor_1_options = {
@@ -157,6 +195,13 @@
   }
 
   function print(){
+    setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 1000);
+
+    $("#print_area").show();
+    jQuery.print("#print_area");
+  }
+
+  function loket(){
     setTimeout('window.location.href="<?php echo base_url();?>antrian/kiosk"', 1000);
 
     $("#print_area").show();

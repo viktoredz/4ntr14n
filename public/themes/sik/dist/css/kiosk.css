@@ -25,7 +25,14 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-
+#btn-search{
+  font-size: 24px;
+  height:120px;
+}
+#btn-loket{
+  font-size: 24px;
+  height:120px;
+}
 #pus_name{
   width: 100%;
   color: white;
@@ -44,6 +51,17 @@ body {
   text-shadow: 1px 1px 1px #1d3a02;
   padding-bottom: 20px;
   line-height: 0;
+  float: center;
+  position: relative;
+}
+#pilih{
+  width: 100%;
+  color: white;
+  font-family: Calibri;
+  font-size: 30px;
+  font-weight: bold;
+  padding-top: 60px;
+  padding-bottom: 0px;
   float: center;
   position: relative;
 }

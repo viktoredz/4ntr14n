@@ -36,6 +36,26 @@ class Kiosk extends CI_Controller {
   		echo json_encode($data);
 	}	  	  	
 
+	function loket(){
+      	$valid_puskesmas 	= "P".$this->session->userdata('puskesmas');
+		$nomor 				= $this->antrian_model->loket();
+      	$puskesmas 			= $this->epus->get_puskesmas($valid_puskesmas);
+		$district			= $this->antrian_model->get_district();
+
+		$data['nomor'] 		= $nomor;	
+		$data['puskesmas'] 	= $puskesmas->value;
+		$data['alamat'] 	= $district;
+		$print = $this->parser->parse("antrian/print_loket",$data,true);
+
+		$data = array(
+			'content'	=> "NOMOR ANTRIAN LOKET :<br><br><b style='font-size:50px'>".$nomor."</b><br>Silahkan menunggu panggilan di<br>LOKET PENDAFTARAN<br><br><button class='btn-lg btn-success' onClick='print();tutup()' style='width:200px'>OK</button>",
+			'print'	=> $print,
+			'nomor'	=> $nomor
+		);
+
+  		echo json_encode($data);
+	}
+
 	function bpjs($id){
 		$pasien		= $this->antrian_model->get_bpjs($id);
 		if(!empty($pasien->cl_pid)){

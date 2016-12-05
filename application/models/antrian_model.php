@@ -5,6 +5,25 @@ class Antrian_model extends CI_Model {
         parent::__construct();
     }
 
+    function loket(){
+      $tgl = date("Y-m-d");
+      $this->db->select('MAX(no)+1 as no');
+      $this->db->where('tgl',$tgl);
+
+      $data = $this->db->get('cl_loket')->row();
+
+      $no = empty($data->no) ? 1 : $data->no;
+      $add = array(
+          'tgl' => $tgl,
+          'no'  => $no
+        );
+      if($this->db->insert('cl_loket',$add)){
+        return $no;
+      }else{
+        return 0;
+      }
+    }
+
     function get_puskesmas($value=''){
       $value = "P".($value != "" ? $value : $this->session->userdata('puskesmas'));
       $this->db->where('code',$value);
