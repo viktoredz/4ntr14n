@@ -123,11 +123,38 @@
           <h1>
             {title_group}
             <small>{title_form}</small>
+            <small>
+            <?php 
+            function get_client_ip_env() {
+                $ipaddress = '';
+                if (getenv('HTTP_CLIENT_IP'))
+                    $ipaddress = getenv('HTTP_CLIENT_IP');
+                else if(getenv('HTTP_X_FORWARDED_FOR'))
+                    $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+                else if(getenv('HTTP_X_FORWARDED'))
+                    $ipaddress = getenv('HTTP_X_FORWARDED');
+                else if(getenv('HTTP_FORWARDED_FOR'))
+                    $ipaddress = getenv('HTTP_FORWARDED_FOR');
+                else if(getenv('HTTP_FORWARDED'))
+                    $ipaddress = getenv('HTTP_FORWARDED');
+                else if(getenv('REMOTE_ADDR'))
+                    $ipaddress = getenv('REMOTE_ADDR');
+                else
+                    $ipaddress = 'UNKNOWN';
+             
+                return $ipaddress;
+            }
+
+            echo get_client_ip_env();
+            ?>
+            </small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="<?php echo base_url()?>"><i class="fa fa-dashboard"></i> {title_group}</a></li>
             <li class="active">{title_form}</li>
+
           </ol>
+
         </section>
 
         <section class="content">
