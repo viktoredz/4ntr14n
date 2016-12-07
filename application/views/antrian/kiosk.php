@@ -8,7 +8,7 @@
   <div id="pilih">Selamat Datang Di Puskesmas Kami</div>
   <div id="daftar_btn">
     <button type="button" id="btn-search" class="btn-lg btn-warning"><i class="fa fa-vcard-o" style="font-size:50px"></i><br>PASIEN LAMA </button>
-    <button type="button" id="btn-loket" class="btn-lg btn-danger"><i class="fa fa-user-circle" style="font-size:50px"></i><br>PASIEN BARU </button>
+    <button type="button" id="btn-loket" class="btn-lg btn-primary"><i class="fa fa-user-circle" style="font-size:50px"></i><br>PASIEN BARU </button>
   </div>
 </div>
 
