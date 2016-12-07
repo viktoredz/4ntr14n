@@ -7,9 +7,15 @@ foreach ($poli as $rows) { ?>
     </div>
     <div class="col-md-12">
       <div class="content-sub-poli">
-        <h5 class="no-poli">
-          <?php echo $rows['nomor']?>
-        </h5>
+        <?php if($rows['kode']=="APOTEK"){?>
+          <h5 class="no-apotek">
+            <?php echo $rows['nomor']?>
+          </h5>
+        <?php }else{ ?>
+          <h5 class="no-poli">
+            <?php echo $rows['nomor']?>
+          </h5>
+        <?php } ?>
       </div>
     </div>
   </div>

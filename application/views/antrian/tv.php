@@ -101,6 +101,7 @@ function getRunningText(){
 
 function getAntrian(){
   var next = $("#id_poli").val();
+  if(next == 999) next= 0;
   $.get("<?php echo base_url() . 'antrian/tv/tv_pasien/' ?>" + next).done(function(res){
     $(".main-poli").css({"opacity":"0.1"});
     $(".main-poli").html(res);

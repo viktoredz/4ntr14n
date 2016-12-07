@@ -21,7 +21,7 @@ class Tv extends CI_Controller {
   		$data['poli'] 	= $poli['value'];
   		$data['pasien'] = $this->antrian_model->get_antrian($poli['kode']);
 
-		echo $this->parser->parse("antrian/tv_pasien",$data,true);
+		  echo $this->parser->parse("antrian/tv_pasien",$data,true);
  	}
 
   	function tv_next($id){
@@ -33,7 +33,7 @@ class Tv extends CI_Controller {
   		$data = array();
   		$data['poli']	= $this->antrian_model->get_list_poli($page);
 
-		echo $this->parser->parse("antrian/tv_poli",$data,true);
+		  echo $this->parser->parse("antrian/tv_poli",$data,true);
  	}
 
   	function tv_page($page){
