@@ -19,6 +19,7 @@
   <div id="daftar">PENDAFTARAN PASIEN</div>
   <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan Nomor NIK / No BPJS"></div>
   <div id="daftar_number">
+    <button type="button" id="btn-number-P" class="btn-lg btn-primary"> P </button>
     <button type="button" id="btn-number-0" class="btn-lg btn-primary"> 0 </button>
     <button type="button" id="btn-number-1" class="btn-lg btn-primary"> 1 </button>
     <button type="button" id="btn-number-2" class="btn-lg btn-primary"> 2 </button>
@@ -100,7 +101,7 @@
       var id  = $(this).attr('id').split('-');
       var val = $("[name='id_pasien']").val();
       var str = val + id[2];
-      if(val.length<16){
+      if(val.length<=16){
         $("[name='id_pasien']").val(str);
       }
     });
