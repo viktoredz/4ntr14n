@@ -110,7 +110,7 @@ function getAntrian(){
 
   $.get("<?php echo base_url() . 'antrian/tv/tv_next/' ?>" + next).done(function(res){
     $("#id_poli").val(res);
-    setTimeout('getAntrian()', 10000);
+    setTimeout('getAntrian()', 5000);
   });
 }
 
@@ -124,7 +124,7 @@ function getSubAntrian(){
 
   $.get("<?php echo base_url() . 'antrian/tv/tv_page/' ?>" + page).done(function(res){
     $("#id_poli_page").val(res);
-    setTimeout('getSubAntrian()', 10000);
+    setTimeout('getSubAntrian()', 5000);
   });
 }
 

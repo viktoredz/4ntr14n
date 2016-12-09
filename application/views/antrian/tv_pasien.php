@@ -8,7 +8,7 @@
         $x = 0;
         foreach($pasien as $row){
         ?>
-        <li <?php if($x==0){?>class="active"<?php }?>><?php echo $row['reg_antrian_poli'].". ".$row['nama']?></li>
+        <li <?php if($x==0){?>class="active"<?php }?>><?php echo $row['reg_antrian_poli'].". ".($x==0 ? substr($row['nama'],0,10) : substr($row['nama'],0,15)) ?></li>
         <?php 
         $x=1;
         }

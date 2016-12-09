@@ -4604,14 +4604,14 @@ fieldset[disabled] .btn-vk.active {
 .title-sub-poli{ text-align: center; padding: 0; margin-top: 15px; font-size: 24px; font-weight: bold; }
 .content-poli{ border-radius: 5px; background-color: #fff; padding: 0; margin-top: 20px; min-height: 305px;}
 .list-poli{ padding: 10px;}
-.list-poli li{ list-style: none; padding: 5px; font-size: 18px; height: 100%; text-transform: uppercase; }
-.list-poli li.active{ text-align: center; color: green; font-size: 25px; margin: 10px 0 10px; }
+.list-poli li{ list-style: none; padding: 5px; font-size: 28px; height: 100%; text-transform: uppercase;font-weight: bold }
+.list-poli li.active{ text-align: center; color: green; font-size: 38px; margin: 10px 0 10px; font-weight: bold}
 .video{ float: right;}
 .video video{  padding-top:10px; padding-bottom:8px; width: 100%; border-radius: 5px;background: white;margin-top:10px;padding:15px;max-height: 420px}
 .sub-poli{ border-radius: 5px; color:white; padding:0px; background-color: #37832b; height: 100px; margin-top: 20px; margin-left:-15px; position: relative; height: 150px}
 .content-sub-poli{ border-radius: 5px; padding: 10px; background-color: #fff; text-align: center; margin-top: 0px; position: relative; height:69px; max-height:69px;}
 .no-poli{ font-weight: bold; font-size: 40px; padding: 0; margin:2px; color: red}
-.no-apotek{ font-weight: bold; font-size: 20px; padding: 0; margin:2px; color: purple}
+.no-apotek{ font-weight: bold; font-size: 18px; padding: 0; margin:2px; color: purple; max-width: 144px;overflow:hidden;}
 .running-text{
   position: absolute;
   width: 100%;

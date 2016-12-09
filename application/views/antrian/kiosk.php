@@ -17,10 +17,24 @@
   <div id="pus_name">PUSKESMAS {puskesmas}</div>
   <div id="dinas_name">Dinas Kesehatan {district}</div>
   <div id="daftar">PENDAFTARAN PASIEN</div>
-  <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan No RM / NIK / No BPJS"></div>
+  <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan Nomor NIK / No BPJS"></div>
+  <div id="daftar_number">
+    <button type="button" id="btn-number-0" class="btn-lg btn-primary"> 0 </button>
+    <button type="button" id="btn-number-1" class="btn-lg btn-primary"> 1 </button>
+    <button type="button" id="btn-number-2" class="btn-lg btn-primary"> 2 </button>
+    <button type="button" id="btn-number-3" class="btn-lg btn-primary"> 3 </button>
+    <button type="button" id="btn-number-4" class="btn-lg btn-primary"> 4 </button>
+    <button type="button" id="btn-number-5" class="btn-lg btn-primary"> 5 </button>
+    <button type="button" id="btn-number-6" class="btn-lg btn-primary"> 6 </button>
+    <button type="button" id="btn-number-7" class="btn-lg btn-primary"> 7 </button>
+    <button type="button" id="btn-number-8" class="btn-lg btn-primary"> 8 </button>
+    <button type="button" id="btn-number-9" class="btn-lg btn-primary"> 9 </button>
+    <button type="button" id="btn-koreksi" class="btn-lg btn-warning"><i class="fa fa-arrow-left"></i></button>
+    <button type="button" id="btn-hapus" class="btn-lg btn-danger">del</button>
+  </div>
   <div id="daftar_btn">
     <button type="button" id="btn-daftar" class="btn-lg btn-warning"><i class="fa fa-search"></i> &nbsp; CARI </button>
-    <button type="button" id="btn-kembali" class="btn-lg btn-primary"><i class="fa fa-reply"></i> &nbsp; KEMBALI </button>
+    <button type="button" id="btn-kembali" class="btn-lg btn-success"><i class="fa fa-reply"></i> &nbsp; KEMBALI </button>
   </div>
 </div>
 
@@ -74,6 +88,23 @@
       isModal: true, autoOpen: false, modalOpacity: 0.4
     });
 
+    $("#btn-hapus").click(function(){
+      $("[name='id_pasien']").val('');
+    });
+    $("#btn-koreksi").click(function(){
+      var val = $("[name='id_pasien']").val();
+      var str = val.substr(0,(val.length-1));
+      $("[name='id_pasien']").val(str);
+    });
+    $("[id^='btn-number']").click(function(){
+      var id  = $(this).attr('id').split('-');
+      var val = $("[name='id_pasien']").val();
+      var str = val + id[2];
+      if(val.length<16){
+        $("[name='id_pasien']").val(str);
+      }
+    });
+
     $("#btn-loket").click(function(){
         $.ajax({ 
           type: 'GET', 
@@ -89,8 +120,10 @@
     });
 
     $("#btn-search").click(function(){
+
       $("#front").hide();
       $("#search").show('fade');
+      $("[name='id_pasien']").focus();
     });
 
     $("#btn-kembali").click(function(){
