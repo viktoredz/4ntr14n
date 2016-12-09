@@ -17,7 +17,7 @@
   <div id="pus_name">PUSKESMAS {puskesmas}</div>
   <div id="dinas_name">Dinas Kesehatan {district}</div>
   <div id="daftar">PENDAFTARAN PASIEN</div>
-  <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan Nomor NIK / No BPJS"></div>
+  <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan Nomor MR / NIK / No BPJS"></div>
   <div id="daftar_number">
     <button type="button" id="btn-number-P" class="btn-lg btn-primary"> P </button>
     <button type="button" id="btn-number-0" class="btn-lg btn-primary"> 0 </button>
