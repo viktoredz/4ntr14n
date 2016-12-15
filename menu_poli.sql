@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS `cl_loket`;
+CREATE TABLE `cl_loket` (
+  `tgl` date NOT NULL,
+  `no` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `cl_loket`
+  ADD PRIMARY KEY (`tgl`,`no`);
 
 
 DROP TABLE IF EXISTS `app_files`;
