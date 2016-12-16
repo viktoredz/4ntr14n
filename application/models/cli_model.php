@@ -84,6 +84,11 @@ class Cli_model extends CI_Model {
 
         }else{
             $antrian = array(
+                'reg_time'          => $dt['reg_time'],
+                'cl_pid'            => $dt['cl_pid'],
+                'reg_antrian_poli'  => $dt['reg_antrian_poli'],
+                'reg_antrian'       => $dt['reg_antrian'],
+                'reg_poli'          => $dt['reg_poli'],
                 'status_periksa'    => $dt['status_periksa'],
                 'status_lab'        => $dt['status_lab'],
                 'status_apotek'     => $dt['status_apotek'],
