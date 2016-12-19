@@ -1,3 +1,6 @@
+ALTER TABLE `epus_antrian_3671`.`cl_reg` 
+ADD COLUMN `waktu_apotek` CHAR(10) NULL AFTER `status_kasir`;
+
 DROP TABLE IF EXISTS `cl_loket`;
 CREATE TABLE `cl_loket` (
   `tgl` date NOT NULL,
