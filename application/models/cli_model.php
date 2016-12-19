@@ -68,7 +68,8 @@ class Cli_model extends CI_Model {
                 'status_periksa'    => $dt['status_periksa'],
                 'status_lab'        => $dt['status_lab'],
                 'status_apotek'     => $dt['status_apotek'],
-                'status_kasir'      => $dt['status_kasir']
+                'status_kasir'      => $dt['status_kasir'],
+                'waktu_apotek'      => $dt['waktu_apotek']
             );
             if($this->db->insert('cl_reg',$antrian)){
                 $this->db->where('cl_pid',$dt['cl_pid']);
@@ -92,7 +93,8 @@ class Cli_model extends CI_Model {
                 'status_periksa'    => $dt['status_periksa'],
                 'status_lab'        => $dt['status_lab'],
                 'status_apotek'     => $dt['status_apotek'],
-                'status_kasir'      => $dt['status_kasir']
+                'status_kasir'      => $dt['status_kasir'],
+                'waktu_apotek'      => $dt['waktu_apotek']
             );
             $this->db->where('reg_id',$dt['reg_id']);
             if($this->db->update('cl_reg',$antrian)){

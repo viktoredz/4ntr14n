@@ -116,11 +116,12 @@ class Antrian_model extends CI_Model {
       }
 
 
-      $this->db->select('MIN(reg_antrian) as reg_antrian,reg_antrian_poli,cl_pasien.nama');
+      $this->db->select('reg_antrian,reg_antrian_poli,cl_pasien.nama');
       $this->db->where('status_periksa',1);
       $this->db->where('status_apotek NOT IN(0,3)');
       $this->db->where('reg_time >', $start_date);
       $this->db->join('cl_pasien', 'cl_pasien.cl_pid=cl_reg.cl_pid');
+      $this->db->order_by('waktu_apotek','asc');
       $apotek = $this->db->get('cl_reg')->row();
 
       $apotek       = array('nomor' => !empty($apotek->nama) ? $apotek->nama : "-",
@@ -163,7 +164,7 @@ class Antrian_model extends CI_Model {
         $this->db->where('status_periksa', 1);
         $this->db->where('status_apotek NOT IN(0,3)');
         $this->db->join('cl_pasien','cl_pasien.cl_pid=cl_reg.cl_pid');
-        $this->db->order_by('reg_id','asc');
+        $this->db->order_by('waktu_apotek','asc');
         $pasien = $this->db->get('cl_reg',5)->result_array();
       }else{
         $this->db->select('cl_pasien.nama,cl_reg.reg_antrian,cl_reg.reg_antrian_poli');
