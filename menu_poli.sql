@@ -168,3 +168,10 @@ ALTER TABLE `app_users_access`
 --
 ALTER TABLE `app_files`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+
+ALTER TABLE `cl_clinic` 
+ADD PRIMARY KEY (`id`);
+
+UPDATE `cl_clinic` SET `id`='48', `kode`='IMUNISASI', `value`='IMUNISASI', `type`='RJ', `keyword`='IMUNISASI', `is_antrian`='1', `is_daftar`='1' WHERE `id`='0';
+
+
