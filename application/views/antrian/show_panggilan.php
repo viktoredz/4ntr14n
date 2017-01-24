@@ -20,8 +20,9 @@
 	        audioElement.play();
 		}
 
-        if(playlist[no] == "nomorantrian") timeout = 1500;
-        else timeout = 1000;
+        //if(playlist[no] == "nomorantrian") timeout = 1500;
+        //else 
+        timeout = 1500;
 
         no = no+1;
 		setTimeout('playmp3('+no+',playlist)',timeout);

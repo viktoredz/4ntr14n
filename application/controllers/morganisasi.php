@@ -31,7 +31,7 @@ class Morganisasi extends CI_Controller {
 			$data['nama'] 	= isset($panggilan['nama']) ? $panggilan['nama'] : "Panggilan Kosong";
 			$data['poli'] 	= isset($panggilan['reg_poli']) ? "Poli : ".$panggilan['reg_poli'] : "";
 			$data['nomor'] 	= isset($panggilan['reg_antrian_poli']) ? "Nomor : ".$panggilan['reg_antrian_poli'] : "";
-			$data['nomor_slice']	= isset($panggilan['reg_antrian_poli']) ? implode('","',str_split($panggilan['reg_antrian_poli'],1)) : "";
+			$data['nomor_slice']	= $this->slice($panggilan);
 			$data['reg_poli']		= isset($panggilan['reg_poli']) ? $panggilan['reg_poli'] : "";
 
 			if(isset($panggilan['panggilan_id'])) $this->morganisasi_model->call_antrian($panggilan['panggilan_id']);
@@ -41,6 +41,93 @@ class Morganisasi extends CI_Controller {
 			$data = array();
 			echo $this->parser->parse("antrian/show_panggilan_off",$data,true);
 		}	
+	}
+
+	function slice($panggilan){
+		$nomor = isset($panggilan['reg_antrian_poli']) ? $panggilan['reg_antrian_poli'] : 0;
+		//if($nomor==3) $nomor = 567;
+
+		if($nomor>0 && $nomor <= 20){
+			$slice = $nomor;
+		}
+		elseif($nomor>20 && $nomor < 30){
+			$slice = '20","'.substr($nomor, -1);
+		}
+		elseif($nomor>30 && $nomor < 40){
+			$slice = '30","'.substr($nomor, -1);
+		}
+		elseif($nomor>40 && $nomor < 50){
+			$slice = '40","'.substr($nomor, -1);
+		}
+		elseif($nomor>50 && $nomor < 60){
+			$slice = '50","'.substr($nomor, -1);
+		}
+		elseif($nomor>60 && $nomor < 70){
+			$slice = '60","'.substr($nomor, -1);
+		}
+		elseif($nomor>70 && $nomor < 80){
+			$slice = '70","'.substr($nomor, -1);
+		}
+		elseif($nomor>80 && $nomor < 90){
+			$slice = '80","'.substr($nomor, -1);
+		}
+		elseif($nomor>90 && $nomor < 100){
+			$slice = '90","'.substr($nomor, -1);
+		}
+		elseif($nomor>99 && $nomor<110){
+			$slice = '100","'.substr($nomor, -1);
+		}
+		elseif($nomor>109 && $nomor<120){
+			$slice = '100","'.substr($nomor, -2);
+		}
+		elseif($nomor>119 && $nomor<200){
+			$arr = array('reg_antrian_poli'=>substr($nomor, -2));
+			$slice = '100","'.$this->slice($arr);
+		}
+		elseif($nomor>199 && $nomor<210){
+			$slice = '200","'.substr($nomor, -1);
+		}
+		elseif($nomor>209 && $nomor<220){
+			$slice = '200","'.substr($nomor, -2);
+		}
+		elseif($nomor>219 && $nomor<300){
+			$arr = array('reg_antrian_poli'=>substr($nomor, -2));
+			$slice = '200","'.$this->slice($arr);
+		}
+		elseif($nomor>299 && $nomor<310){
+			$slice = '300","'.substr($nomor, -1);
+		}
+		elseif($nomor>309 && $nomor<320){
+			$slice = '300","'.substr($nomor, -2);
+		}
+		elseif($nomor>319 && $nomor<400){
+			$arr = array('reg_antrian_poli'=>substr($nomor, -2));
+			$slice = '300","'.$this->slice($arr);
+		}
+		elseif($nomor>399 && $nomor<410){
+			$slice = '400","'.substr($nomor, -1);
+		}
+		elseif($nomor>409 && $nomor<420){
+			$slice = '400","'.substr($nomor, -2);
+		}
+		elseif($nomor>419 && $nomor<500){
+			$arr = array('reg_antrian_poli'=>substr($nomor, -2));
+			$slice = '400","'.$this->slice($arr);
+		}
+		elseif($nomor>599 && $nomor<510){
+			$slice = '500","'.substr($nomor, -1);
+		}
+		elseif($nomor>509 && $nomor<520){
+			$slice = '500","'.substr($nomor, -2);
+		}
+		elseif($nomor>519 && $nomor<600){
+			$arr = array('reg_antrian_poli'=>substr($nomor, -2));
+			$slice = '500","'.$this->slice($arr);
+		}else{
+			$slice = "";
+		}
+
+		return $slice;
 	}
 
 	function filter(){
