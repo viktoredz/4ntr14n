@@ -124,7 +124,8 @@ class Cli_model extends CI_Model {
                 'nomor'     => substr($dt['nohp'],0,20),
                 'alamat'    => $dt['alamat'],
                 'nik'       => $dt['nik'],
-                'nama'      => $dt['nama_lengkap']
+                'nama'      => $dt['nama_lengkap'],
+                'cl_rm'     => $dt['cl_rm']
             );
             if($this->db->insert('cl_pasien',$pbk)){
                 return "insert";
@@ -138,7 +139,8 @@ class Cli_model extends CI_Model {
                     'bpjs'      => $dt['no_bpjs'],
                     'alamat'    => $dt['alamat'],
                     'nik'       => $dt['nik'],
-                    'nama'      => $dt['nama_lengkap']
+                    'nama'      => $dt['nama_lengkap'],
+                    'cl_rm'     => $dt['cl_rm']
                 );
             }else{
                 $pbk = array(
@@ -146,7 +148,8 @@ class Cli_model extends CI_Model {
                     'nomor'     => substr($dt['nohp'],0,20),
                     'nik'       => $dt['nik'],
                     'alamat'    => $dt['alamat'],
-                    'nama'      => $dt['nama_lengkap']
+                    'nama'      => $dt['nama_lengkap'],
+                    'cl_rm'     => $dt['cl_rm']
                 );
             }
             $this->db->where('cl_pid',$dt['id']);

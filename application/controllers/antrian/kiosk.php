@@ -36,6 +36,23 @@ class Kiosk extends CI_Controller {
   		echo json_encode($data);
 	}	  	  	
 
+  	function cl_rm($id){
+		$pasien	= $this->antrian_model->get_rm($id);
+		if(!empty($pasien->cl_pid)){
+			$data = array(
+				'cl_pid'	=> $pasien->cl_pid,
+				'nama'		=> $pasien->nama,
+				'content'	=> "Selamat datang <b>".$pasien->nama."</b><br><br><div class='row'><div class='col-md-4' style='text-align:right'>Nomor RM :</div><div class='col-md-8' style='text-align:left'>".$pasien->cl_pid."</div></div><div class='row' ><div class='col-md-4' style='text-align:right'>Alamat :</div><div class='col-md-8' style='text-align:left'>".$pasien->alamat."</div></div><br><br>Silahkan lanjutkan ke POLI tujuan anda.<br><br><button class='btn-lg btn-success' onClick='mainpage()' style='width:200px'>DAFTAR</button>"
+			);
+		}else{
+			$data = array(
+				'content'	=> "Maaf <b>Nomor RM</b> anda tidak ditemukan<br>atau belum terdaftar.<br><br>Silahkan melakukan pendaftaran melalui<br><b>LOKET PENDAFTARAN</b><br><br>Terimakasih.<br><br><button class='btn-lg btn-success' onClick='tutup()' style='width:200px'>OK</button>"
+			);
+		}
+
+  		echo json_encode($data);
+	}	  	  	
+
 	function loket(){
       	$valid_puskesmas 	= "P".$this->session->userdata('puskesmas');
 		$nomor 				= $this->antrian_model->loket();

@@ -20,6 +20,8 @@
   <div id="daftar_id"><input type="text" name="id_pasien" maxlength="16" placeholder="Silahkan Masukkan Nomor MR / NIK / No BPJS"></div>
   <div id="daftar_number">
     <button type="button" id="btn-number-P" class="btn-lg btn-primary"> P </button>
+    <button type="button" id="btn-number--" class="btn-lg btn-primary"> - </button>
+    <button type="button" id="btn-space" class="btn-lg btn-primary"> &nbsp;</button>
     <button type="button" id="btn-number-0" class="btn-lg btn-primary"> 0 </button>
     <button type="button" id="btn-number-1" class="btn-lg btn-primary"> 1 </button>
     <button type="button" id="btn-number-2" class="btn-lg btn-primary"> 2 </button>
@@ -92,6 +94,13 @@
     $("#btn-hapus").click(function(){
       $("[name='id_pasien']").val('');
     });
+    $("#btn-space").click(function(){
+      var val = $("[name='id_pasien']").val();
+      var str = val + " ";
+      if(val.length<=16){
+        $("[name='id_pasien']").val(str);
+      }
+    });
     $("#btn-koreksi").click(function(){
       var val = $("[name='id_pasien']").val();
       var str = val.substr(0,(val.length-1));
@@ -100,7 +109,11 @@
     $("[id^='btn-number']").click(function(){
       var id  = $(this).attr('id').split('-');
       var val = $("[name='id_pasien']").val();
-      var str = val + id[2];
+      if(id[2] != ""){
+        var str = val + id[2];
+      }else{
+        var str = val + "-";
+      }
       if(val.length<=16){
         $("[name='id_pasien']").val(str);
       }
@@ -136,7 +149,21 @@
     $("#btn-daftar").click(function(){
       var idpasien = $("[name='id_pasien']").val();
       if(idpasien.length < 13){
-        $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>Nomor NIK atau BPJS tidak benar.<br>Silahkan periksa kembali.<br><br>Terimakasih.<br><br><br><br><button class='btn-lg btn-danger' onClick='tutup()'>TUTUP</button><br><br></div>");
+          $.ajax({ 
+            type: 'GET', 
+            url: '<?php echo base_url().'antrian/kiosk/cl_rm/'; ?>'+ idpasien, 
+            dataType: 'json',
+            success: function (data) { 
+              if(data.content == ""){
+                $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>RM, NIK atau BPJS tidak benar.<br>Silahkan periksa kembali.<br><br>Terimakasih.<br><br><br><br><button class='btn-lg btn-danger' onClick='tutup()'>TUTUP</button><br><br></div>");
+              }else{
+                $("#cl_pid").val(data.cl_pid);
+                $("#poli-header").html(data.nama);
+
+                $("#popup_content").html("<div style='padding-top:35px;font-size:18px' align='center'>"+data.content+"</div>");
+              }
+            }
+          });
       }else{
         if(idpasien.length == 13){
           $.ajax({ 

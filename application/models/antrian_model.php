@@ -42,6 +42,16 @@ class Antrian_model extends CI_Model {
       return ucwords(strtolower($district->value));
     }
 
+    function get_rm($id=""){
+      $this->db->where('cl_rm',$id);
+      $pasien = $this->db->get('cl_pasien')->row();
+      if(!empty($pasien->nama)){
+        return $pasien;
+      }else{
+        return false;
+      }
+    }
+
     function get_nik($id=""){
       $this->db->where('nik',$id);
       $this->db->or_where('cl_pid',$id);
