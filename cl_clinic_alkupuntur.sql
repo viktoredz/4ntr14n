@@ -1,0 +1,1 @@
+update cl_clinic set keyword='ALKUPUNTUR',kode='ALKUPUNTUR' WHERE id='47'; 
