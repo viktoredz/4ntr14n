@@ -28,7 +28,7 @@
 		});
 
 		$("input[name^='is_antrian__']").click(function() {
-			type   = "is_daftar";
+			type   = "is_antrian";
 			tmp_id = $(this).prop("name").split("__");
 			status = $(this).is(':checked');
 
