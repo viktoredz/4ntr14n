@@ -36,7 +36,6 @@ class News extends CI_Controller {
   function submit_news(){
     $content = $this->input->post('content');
     $data = array(
-      'id' => '',
       'content' => $content,
       'status' => '1',
       'code' => 'P'.$this->session->userdata('puskesmas'),
